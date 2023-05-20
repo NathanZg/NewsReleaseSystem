@@ -3,7 +3,6 @@ package com.news.service;
 import com.news.entity.NewsData;
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

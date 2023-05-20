@@ -4,10 +4,7 @@ import com.news.entity.Type;
 import com.news.service.TypeService;
 import com.news.utils.Response;
 import com.news.utils.ResponseUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,7 +14,7 @@ import java.util.List;
  * </p>
  */
 @RestController
-@RequestMapping("/news/api")
+@RequestMapping("/api")
 public class TypeController {
     private TypeService typeService;
 
@@ -30,8 +27,9 @@ public class TypeController {
      * @return List集合
      */
     @PostMapping("/typeSelect")
-    public List<Type> typeSelect() {
-        return typeService.getAll();
+    public Response<List<Type>> typeSelect() {
+        List<Type> all = typeService.getAll();
+        return ResponseUtils.success(all);
     }
     /**
      * 添加类型
@@ -52,7 +50,7 @@ public class TypeController {
      * @param id 类型ID
      * @return 成功/失败
      */
-    @PostMapping("/typeDelete")
+    @DeleteMapping("/typeDelete")
     public Response<Object> typeDelete(@RequestBody String id) {
         if (typeService.deleteType(id)) {
             return ResponseUtils.success("Delete Type successfully!");

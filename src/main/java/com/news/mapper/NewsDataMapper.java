@@ -2,6 +2,7 @@ package com.news.mapper;
 
 import com.news.entity.NewsData;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.news.entity.Type;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 

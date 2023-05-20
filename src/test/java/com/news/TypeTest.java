@@ -40,11 +40,11 @@ public class TypeTest {
         Response<Object> objectResponse = typeController.typeAdd(type);
         System.out.println(objectResponse);
     }
-    @Test
-    void demoST(){
-        List<Type> types = typeController.typeSelect();
-        System.out.println(types);
-    }
+//    @Test
+//    void demoST(){
+//        List<Type> types = typeController.typeSelect();
+//        System.out.println(types);
+//    }
     @Test
     void demoDT(){
         String s="1";

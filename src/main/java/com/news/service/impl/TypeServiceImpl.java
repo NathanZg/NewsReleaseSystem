@@ -6,6 +6,7 @@ import com.news.service.TypeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,7 +51,12 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements Ty
      */
     @Override
     public boolean deleteType(String id){
-        return typeMapper.deleteById(Integer.parseInt(id))>=1;
+        String[] split = id.split(",");
+        ArrayList<Integer> ID = new ArrayList<>();
+        for(String s:split){
+            ID.add(Integer.parseInt(s));
+        }
+        return typeMapper.deleteBatchIds(ID)>=1;
     }
 
 
