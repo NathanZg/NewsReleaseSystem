@@ -30,8 +30,8 @@ public class NewsCommentServiceImpl extends ServiceImpl<NewsCommentMapper, NewsC
     }
 
     @Override
-    public boolean delete(NewsComment newsComment) {
-        return newsCommentMapper.deleteById(newsComment)>0;
+    public boolean delete(Integer id) {
+        return newsCommentMapper.deleteById(id)>0;
     }
 
     @Override

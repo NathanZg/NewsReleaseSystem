@@ -23,15 +23,10 @@ import java.util.List;
 @RequestMapping("/comment")
 public class CommentController {
     private CommentService commentService;
-//    private ResponseUtils responseUtils;
 
     public CommentController(CommentService commentService) {
         this.commentService = commentService;
     }
-
-//    public CommentController(ResponseUtils responseUtils) {
-//        this.responseUtils = responseUtils;
-//    }
 
     //添加数据
     @PostMapping

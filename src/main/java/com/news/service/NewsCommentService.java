@@ -18,7 +18,7 @@ public interface NewsCommentService extends IService<NewsComment> {
     boolean insert(NewsComment newsComment);
 
     //删除
-    boolean delete(NewsComment newsComment);
+    boolean delete(Integer id);
 
     //批量删除
     boolean batch_delete(List<Integer> idList);
