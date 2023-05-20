@@ -20,7 +20,7 @@ import java.util.List;
  * @since 2023-05-18
  */
 @RestController
-@RequestMapping("/comment")
+@RequestMapping("/api/comment")
 public class CommentController {
     private CommentService commentService;
 

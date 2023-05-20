@@ -1,5 +1,6 @@
 package com.news.service.impl;
 
+import com.news.entity.Comment;
 import com.news.entity.NewsComment;
 import com.news.mapper.NewsCommentMapper;
 import com.news.service.NewsCommentService;
@@ -38,6 +39,12 @@ public class NewsCommentServiceImpl extends ServiceImpl<NewsCommentMapper, NewsC
     public List<NewsComment> getAll() {
         List<NewsComment> newsCommentList=newsCommentMapper.selectList(null);
         return newsCommentList;
+    }
+
+    @Override
+    public List<Comment> getCommentByNews(Integer id) {
+        List<Comment>commentList=newsCommentMapper.getCommentByNews(id);
+        return commentList;
     }
 
     @Override

@@ -119,4 +119,11 @@ class NewsReleaseSystemApplicationTests {
         comment.setCommentDate(LocalDateTime.parse("2023-05-19 17:56:38", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         commentService.updateId(comment);
     }
+
+    @Test
+    void selectCommentByNews()
+    {
+        List<Comment>newsCommentList=newsCommentService.getCommentByNews(1);
+        System.out.println(newsCommentList);
+    }
 }

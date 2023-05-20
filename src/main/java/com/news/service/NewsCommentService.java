@@ -1,5 +1,6 @@
 package com.news.service;
 
+import com.news.entity.Comment;
 import com.news.entity.NewsComment;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -25,4 +26,7 @@ public interface NewsCommentService extends IService<NewsComment> {
 
     //查询
     List<NewsComment> getAll();
+
+    //更具新闻id获取评论数据
+    List<Comment> getCommentByNews(Integer id);
 }

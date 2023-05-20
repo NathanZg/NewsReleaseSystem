@@ -20,7 +20,7 @@ import java.util.List;
  * @since 2023-05-18
  */
 @RestController
-@RequestMapping("/newsComment")
+@RequestMapping("/api/newsComment")
 public class NewsCommentController {
     private NewsCommentService newsCommentService;
 
@@ -40,7 +40,7 @@ public class NewsCommentController {
             return responseUtils.fail("insert fail!!!");
     }
 
-    //查看数据
+    //查看全部数据
     @GetMapping
     public Response getAll(){
         List<NewsComment> commentList=newsCommentService.getAll();
@@ -49,6 +49,23 @@ public class NewsCommentController {
 //        System.out.println("查询全部");
         if(flag)
             return responseUtils.success("all success!!!");
+        else
+            return responseUtils.fail("some fail!!!");
+    }
+
+    //查询指定新闻的评论
+    @GetMapping("/{id}")
+    public Response getCommentByNews(@PathVariable Integer id){
+        List<Comment> commentList=newsCommentService.getCommentByNews(id);
+        boolean flag=commentList!=null?true:false;
+        ResponseUtils responseUtils=new ResponseUtils();
+        Response<List<Comment>> response=responseUtils.success(commentList);
+//        for(Comment comment:response.getData())
+//        {
+//            System.out.println(comment);
+//        }
+        if(flag)
+            return responseUtils.success(commentList);
         else
             return responseUtils.fail("some fail!!!");
     }
