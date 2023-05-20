@@ -1,6 +1,7 @@
 package com.news.controller;
 
 import com.news.entity.NewsData;
+import com.news.mapper.NewsDataMapper;
 import com.news.service.NewsDataService;
 import com.news.utils.Response;
 import com.news.utils.ResponseUtils;
@@ -22,9 +23,10 @@ import java.util.List;
 @RequestMapping("/news/api")
 public class NewsDataController {
     private NewsDataService newsDataService;
-
-    public NewsDataController(NewsDataService newsDataService) {
+    private NewsDataMapper newsDataMapper;
+    public NewsDataController(NewsDataService newsDataService, NewsDataMapper newsDataMapper) {
         this.newsDataService = newsDataService;
+        this.newsDataMapper = newsDataMapper;
     }
     @PostMapping("/newsSelect")
     public List<NewsData> newsSelect() {
@@ -57,4 +59,14 @@ public class NewsDataController {
             return ResponseUtils.fail("Failed to Delete newsData !");
         }
     }
+    @PostMapping("/selectALL")
+    public Response<Object> selectALL(Integer id){
+        if(newsDataMapper.getALL(id)==null){
+            return ResponseUtils.success("selectALL newsData successfully!");
+        }
+        else{
+            return ResponseUtils.fail("Failed to selectALL newsData !");
+        }
+    }
+
 }

@@ -1,10 +1,12 @@
 package com.news;
 
+import com.news.controller.NewsDataController;
 import com.news.controller.TypeController;
 import com.news.entity.NewsData;
 import com.news.entity.Type;
 import com.news.mapper.NewsDataMapper;
 import com.news.service.NewsDataService;
+import com.news.utils.Response;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +20,8 @@ public class NewsDataTest {
     private NewsDataMapper newsDataMapper;
     @Autowired
     private NewsDataService newsDataService;
+    @Autowired
+    private NewsDataController newsDataController;
     @Test
     void getAllData(){
         List<NewsData> newsData = newsDataMapper.selectList(null);
@@ -56,5 +60,13 @@ public class NewsDataTest {
     void demo(){
         NewsData data = newsDataService.getData(1);
         System.out.println(data);
+    }
+    @Test
+    void getALL(){
+        Type type=new Type(1,"科幻");
+        //Response<Object> objectResponse = newsDataController.selectALL(type.getId());
+        //System.out.println(objectResponse);
+        List<NewsData> all = newsDataMapper.getALL(type.getId());
+        System.out.println(all);
     }
 }

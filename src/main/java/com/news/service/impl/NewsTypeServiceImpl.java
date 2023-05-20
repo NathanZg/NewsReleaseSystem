@@ -1,6 +1,5 @@
 package com.news.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.news.entity.NewsType;
 import com.news.mapper.NewsTypeMapper;
 import com.news.service.NewsTypeService;

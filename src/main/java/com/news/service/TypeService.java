@@ -9,9 +9,6 @@ import java.util.List;
  * <p>
  *  服务类
  * </p>
- *
- * @author Sancean
- * @since 2023-05-19
  */
 public interface TypeService extends IService<Type> {
     /**
