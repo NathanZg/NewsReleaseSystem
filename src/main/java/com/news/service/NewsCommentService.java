@@ -17,22 +17,22 @@ import java.util.List;
 public interface NewsCommentService extends IService<NewsComment> {
     /**
      * 添加
-     * @param NewsComment newsComment 评论信息
+     * @param newsComment 评论信息
      * @return 删除成功(true)/删除失败(false)
      */
     boolean insert(NewsComment newsComment);
 
     /**
      * 根据Id删除
-     * @param Integer id 评论id
+     * @param id 评论id
      * @return 删除成功(true)/删除失败(false)
      */
     boolean delete(Integer id);
 
     /**
-     * 批量删除
-     * @param List<Integer> idList 评论id列表
-     * @return 删除成功(true)/删除失败(false)
+     *
+     * @param deleteIds
+     * @return
      */
     boolean batch_delete(String deleteIds);
 
