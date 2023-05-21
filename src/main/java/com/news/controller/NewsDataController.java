@@ -77,10 +77,12 @@ public class NewsDataController {
     public Response<List<NewsData>> pageQueryByCondition(@RequestBody QueryVo queryVo){
         PageVo<NewsData> newsDataPageVo=newsDataService.pageQueryByCondition(queryVo);
         boolean flag=newsDataPageVo!=null?true:false;
-        if(flag)
+        if(flag){
             return ResponseUtils.success(newsDataPageVo.getRecords());
-        else
+        }
+        else {
             return ResponseUtils.fail("pageselect fail!!!");
+        }
     }
 
 }

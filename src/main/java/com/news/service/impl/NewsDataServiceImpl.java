@@ -99,22 +99,6 @@ public class NewsDataServiceImpl extends ServiceImpl<NewsDataMapper, NewsData> i
             return null;
         }
         QueryWrapper<NewsData> queryWrapper = new QueryWrapper<>();
-//        Integer itemId = queryVo.getNewsId();
-//        if (itemId != null) {
-//            queryWrapper.eq("id", itemId);
-//        }
-//        String title = queryVo.getNewsTitle();
-//        if (title != null) {
-//            queryWrapper.like("title", title);
-//        }
-//        String data = queryVo.getNewsData();
-//        if (data != null) {
-//            queryWrapper.like("data", data);
-//        }
-//        LocalDateTime date = queryVo.getNewsDate()
-//        if (date != null) {
-//            queryWrapper.ge("date", date);
-//        }
         Long current = queryVo.getCurrent();
         if (current == null) {
             current = PageConstant.CURRENT;
@@ -125,10 +109,8 @@ public class NewsDataServiceImpl extends ServiceImpl<NewsDataMapper, NewsData> i
         }
         Page<NewsData> page = new Page<>(current, size);
         PageVo<NewsData> NewPageVo = new PageVo<>();
-//        toDoItemMapper.selectPage(page, queryWrapper);
         newsDataMapper.selectPage(page,queryWrapper);
         BeanUtils.copyProperties(page, NewPageVo);
-//        toDoItemPageVo.setPages(page.getPages());
         NewPageVo.setPages(page.getPages());
         return NewPageVo;
     }

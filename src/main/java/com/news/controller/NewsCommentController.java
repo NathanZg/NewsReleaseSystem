@@ -72,9 +72,9 @@ public class NewsCommentController {
 
 
     //批量删除
-    @PostMapping("/batch_delete")
-    public Response batch_delete(@RequestBody List<Integer>list){
-        boolean flag=newsCommentService.batch_delete(list);
+    @DeleteMapping("/batch_delete")
+    public Response batch_delete(@RequestBody String ids){
+        boolean flag=newsCommentService.batch_delete(ids);
         if(flag)
             return ResponseUtils.success("batch_delete success!!!");
         else

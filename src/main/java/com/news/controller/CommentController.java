@@ -71,8 +71,8 @@ public class CommentController {
 
     //批量删除
     @DeleteMapping("/batch_delete")
-    public Response batch_delete(@RequestBody List<Integer>list){
-        boolean flag=commentService.batch_delete(list);
+    public Response batch_delete(@RequestBody String Ids){
+        boolean flag=commentService.batch_delete(Ids);
         if(flag)
             return ResponseUtils.success("batch_delete success!!!");
         else

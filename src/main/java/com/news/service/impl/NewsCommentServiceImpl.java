@@ -7,6 +7,7 @@ import com.news.service.NewsCommentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,7 +49,19 @@ public class NewsCommentServiceImpl extends ServiceImpl<NewsCommentMapper, NewsC
     }
 
     @Override
-    public boolean batch_delete(List<Integer> idList) {
+    public boolean batch_delete(String deleteIds) {
+        if (deleteIds == null || "".equals(deleteIds)) {
+            return false;
+        }
+        String[] ids = deleteIds.split(",");
+        List<Integer> idList = new ArrayList<>();
+        for (String id : ids) {
+            try {
+                idList.add(Integer.valueOf(id));
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
         return newsCommentMapper.deleteBatchIds(idList)>0;
     }
 }
