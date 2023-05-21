@@ -15,34 +15,29 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class QueryVo {
     /**
-     * 待办事项id
+     * 新闻id
      */
-    private Integer itemId;
-
-    /**
-     * 待办事项标题
-     */
-    private String itemTitle;
-
-    /**
-     * 待办事项描述
-     */
-    private String itemDescription;
-
-    /**
-     * 开始时间
-     */
-    private LocalDateTime startDate;
-
-    /**
-     * 结束时间
-     */
-    private LocalDateTime endDate;
-
-    /**
-     * 完成标识
-     */
-    private Byte completionFlag;
+//    private Integer NewsId;
+//
+//    /**
+//     * 新闻标题
+//     */
+//    private String NewsTitle;
+//
+//    /**
+//     * 新闻内容
+//     */
+//    private String NewsData;
+//
+//    /**
+//     * 编者
+//     */
+//    private String NewsPublisher;
+//
+//    /**
+//     * 新闻时间
+//     */
+//    private LocalDateTime NewsDate;
 
     /**
      * 当前页

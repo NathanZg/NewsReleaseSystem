@@ -2,6 +2,8 @@ package com.news.service;
 
 import com.news.entity.NewsData;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.news.entity.vo.PageVo;
+import com.news.entity.vo.QueryVo;
 
 import java.util.List;
 
@@ -44,5 +46,12 @@ public interface NewsDataService extends IService<NewsData> {
      * @return 删除成功(true)/删除失败(false)
      */
      boolean deleteData(String ids);
+
+    /**
+     * 分页条件查询新闻信息
+     * @param queryVo 查询条件（起始页面和页面容量）
+     * @return PageVo 前端页面封装
+     */
+    PageVo<NewsData> pageQueryByCondition(QueryVo queryVo);
 
 }

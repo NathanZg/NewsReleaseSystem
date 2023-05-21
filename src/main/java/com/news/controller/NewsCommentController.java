@@ -32,12 +32,10 @@ public class NewsCommentController {
     @PostMapping
     public Response<NewsComment> insert(@RequestBody NewsComment newsComment){
         boolean flag=newsCommentService.insert(newsComment);
-        ResponseUtils responseUtils=new ResponseUtils();
-//        System.out.println("插入！！");
         if(flag)
-            return responseUtils.success(newsComment);
+            return ResponseUtils.success(newsComment);
         else
-            return responseUtils.fail("insert fail!!!");
+            return ResponseUtils.fail("insert fail!!!");
     }
 
     //查看全部数据
@@ -45,12 +43,10 @@ public class NewsCommentController {
     public Response getAll(){
         List<NewsComment> commentList=newsCommentService.getAll();
         boolean flag=commentList!=null?true:false;
-        ResponseUtils responseUtils=new ResponseUtils();
-//        System.out.println("查询全部");
         if(flag)
-            return responseUtils.success("all success!!!");
+            return ResponseUtils.success("all success!!!");
         else
-            return responseUtils.fail("some fail!!!");
+            return ResponseUtils.fail("some fail!!!");
     }
 
     //查询指定新闻的评论
@@ -58,28 +54,20 @@ public class NewsCommentController {
     public Response getCommentByNews(@PathVariable Integer id){
         List<Comment> commentList=newsCommentService.getCommentByNews(id);
         boolean flag=commentList!=null?true:false;
-        ResponseUtils responseUtils=new ResponseUtils();
-        Response<List<Comment>> response=responseUtils.success(commentList);
-//        for(Comment comment:response.getData())
-//        {
-//            System.out.println(comment);
-//        }
         if(flag)
-            return responseUtils.success(commentList);
+            return ResponseUtils.success(commentList);
         else
-            return responseUtils.fail("some fail!!!");
+            return ResponseUtils.fail("some fail!!!");
     }
 
     //删除数据
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public Response delete(@PathVariable Integer id){
         boolean flag=newsCommentService.delete(id);
-        ResponseUtils responseUtils=new ResponseUtils();
-//        System.out.println("删除！！");
         if(flag)
-            return responseUtils.success("delete success!!!");
+            return ResponseUtils.success("delete success!!!");
         else
-            return responseUtils.fail("delete fail!!!");
+            return ResponseUtils.fail("delete fail!!!");
     }
 
 
@@ -87,11 +75,9 @@ public class NewsCommentController {
     @PostMapping("/batch_delete")
     public Response batch_delete(@RequestBody List<Integer>list){
         boolean flag=newsCommentService.batch_delete(list);
-        ResponseUtils responseUtils=new ResponseUtils();
-        System.out.println("批量删除！！");
         if(flag)
-            return responseUtils.success("batch_delete success!!!");
+            return ResponseUtils.success("batch_delete success!!!");
         else
-            return responseUtils.fail("batch_delete fail!!!");
+            return ResponseUtils.fail("batch_delete fail!!!");
     }
 }

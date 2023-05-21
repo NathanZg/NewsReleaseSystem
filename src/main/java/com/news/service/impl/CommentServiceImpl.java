@@ -27,9 +27,6 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
 
     public List<Comment> getAll(){
         List<Comment> commentList=commentMapper.selectList(null);
-//        QueryWrapper<Comment> wrapper = new QueryWrapper<>();
-//        wrapper.eq("user", "晓得");
-//        List<Comment> list=commentMapper.selectList(wrapper);
         return commentList;
     }
 

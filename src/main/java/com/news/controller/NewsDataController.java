@@ -2,6 +2,8 @@ package com.news.controller;
 
 import com.news.entity.NewsData;
 import com.news.entity.Type;
+import com.news.entity.vo.PageVo;
+import com.news.entity.vo.QueryVo;
 import com.news.mapper.NewsDataMapper;
 import com.news.service.NewsDataService;
 import com.news.utils.Response;
@@ -69,6 +71,16 @@ public class NewsDataController {
         else{
             return ResponseUtils.fail("Failed to selectALL newsData !");
         }
+    }
+
+    @PostMapping("/selectPage")
+    public Response<List<NewsData>> pageQueryByCondition(@RequestBody QueryVo queryVo){
+        PageVo<NewsData> newsDataPageVo=newsDataService.pageQueryByCondition(queryVo);
+        boolean flag=newsDataPageVo!=null?true:false;
+        if(flag)
+            return ResponseUtils.success(newsDataPageVo.getRecords());
+        else
+            return ResponseUtils.fail("pageselect fail!!!");
     }
 
 }

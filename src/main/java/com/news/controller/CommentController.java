@@ -32,12 +32,10 @@ public class CommentController {
     @PostMapping
     public Response<Comment> insert(@RequestBody Comment comment){
         boolean flag=commentService.insert(comment);
-        ResponseUtils responseUtils=new ResponseUtils();
-//        System.out.println("插入！！");
         if(flag)
-            return responseUtils.success(comment);
+            return ResponseUtils.success(comment);
         else
-            return responseUtils.fail("insert fail!!!");
+            return ResponseUtils.fail("insert fail!!!");
     }
 
     //查看数据
@@ -45,47 +43,39 @@ public class CommentController {
     public Response getAll(){
         List<Comment> commentList=commentService.getAll();
         boolean flag=commentList!=null?true:false;
-        ResponseUtils responseUtils=new ResponseUtils();
-//        System.out.println("查询全部");
         if(flag)
-            return responseUtils.success("all success!!!");
+            return ResponseUtils.success(commentList);
         else
-            return responseUtils.fail("some fail!!!");
+            return ResponseUtils.fail("getAll fail!!!");
     }
 
     //删除数据
     @DeleteMapping("{id}")
     public Response delete(@PathVariable Integer id){
         boolean flag=commentService.delete(id);
-        ResponseUtils responseUtils=new ResponseUtils();
-//        System.out.println("删除！！");
         if(flag)
-            return responseUtils.success("delete success!!!");
+            return ResponseUtils.success("delete success!!!");
         else
-            return responseUtils.fail("delete fail!!!");
+            return ResponseUtils.fail("delete fail!!!");
     }
 
     //根据id修改数据
     @PutMapping
     public Response update(@RequestBody Comment comment){
         boolean flag=commentService.updateId(comment);
-        ResponseUtils responseUtils=new ResponseUtils();
-//        System.out.println("修改！！");
         if(flag)
-            return responseUtils.success(comment);
+            return ResponseUtils.success(comment);
         else
-            return responseUtils.fail("update fail!!!");
+            return ResponseUtils.fail("update fail!!!");
     }
 
     //批量删除
-    @PostMapping("/batch_delete")
+    @DeleteMapping("/batch_delete")
     public Response batch_delete(@RequestBody List<Integer>list){
         boolean flag=commentService.batch_delete(list);
-        ResponseUtils responseUtils=new ResponseUtils();
-        System.out.println("批量删除！！");
         if(flag)
-            return responseUtils.success("batch_delete success!!!");
+            return ResponseUtils.success("batch_delete success!!!");
         else
-            return responseUtils.fail("batch_delete fail!!!");
+            return ResponseUtils.fail("batch_delete fail!!!");
     }
 }

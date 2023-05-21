@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * <p>

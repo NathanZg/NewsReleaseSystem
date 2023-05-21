@@ -6,8 +6,12 @@ import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.news.entity.Comment;
 import com.news.entity.NewsComment;
+import com.news.entity.NewsData;
+import com.news.entity.vo.PageVo;
+import com.news.entity.vo.QueryVo;
 import com.news.service.CommentService;
 import com.news.service.NewsCommentService;
+import com.news.service.NewsDataService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -77,6 +81,8 @@ class NewsReleaseSystemApplicationTests {
     private CommentService commentService;
     @Autowired
     private NewsCommentService newsCommentService;
+    @Autowired
+    private NewsDataService newsDataService;
     @Test
     void getAll()
     {
@@ -125,5 +131,26 @@ class NewsReleaseSystemApplicationTests {
     {
         List<Comment>newsCommentList=newsCommentService.getCommentByNews(1);
         System.out.println(newsCommentList);
+    }
+
+    @Test
+    void insertNewsData()
+    {
+        NewsData newsData=new NewsData();
+        newsData.setData("asdasbhasbfus");
+        newsData.setDate(LocalDateTime.parse("2023-05-02 16:25:17",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        newsData.setPublisher("诞");
+        newsData.setTitle("大标题6");
+        newsDataService.insertData(newsData);
+    }
+
+    @Test
+    void selectNewsDataPage()
+    {
+        QueryVo queryVo=new QueryVo();
+        queryVo.setCurrent(0L);
+        queryVo.setSize(2L);
+        PageVo<NewsData> newsDataPageVo=newsDataService.pageQueryByCondition(queryVo);
+//        System.out.println(newsDataPageVo.getRecords());
     }
 }

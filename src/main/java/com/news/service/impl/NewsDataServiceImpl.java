@@ -1,11 +1,18 @@
 package com.news.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.news.constants.PageConstant;
 import com.news.entity.NewsData;
+import com.news.entity.vo.PageVo;
+import com.news.entity.vo.QueryVo;
 import com.news.mapper.NewsDataMapper;
 import com.news.service.NewsDataService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,5 +86,50 @@ public class NewsDataServiceImpl extends ServiceImpl<NewsDataMapper, NewsData> i
             ID.add(Integer.parseInt(s));
         }
         return newsDataMapper.deleteBatchIds(ID)>=1;
+    }
+
+    /**
+     * 分页条件查询新闻信息
+     * @param queryVo 查询条件（起始页面和页面容量）
+     * @return PageVo 前端页面封装
+     */
+    @Override
+    public PageVo<NewsData> pageQueryByCondition(QueryVo queryVo) {
+        if (queryVo == null) {
+            return null;
+        }
+        QueryWrapper<NewsData> queryWrapper = new QueryWrapper<>();
+//        Integer itemId = queryVo.getNewsId();
+//        if (itemId != null) {
+//            queryWrapper.eq("id", itemId);
+//        }
+//        String title = queryVo.getNewsTitle();
+//        if (title != null) {
+//            queryWrapper.like("title", title);
+//        }
+//        String data = queryVo.getNewsData();
+//        if (data != null) {
+//            queryWrapper.like("data", data);
+//        }
+//        LocalDateTime date = queryVo.getNewsDate()
+//        if (date != null) {
+//            queryWrapper.ge("date", date);
+//        }
+        Long current = queryVo.getCurrent();
+        if (current == null) {
+            current = PageConstant.CURRENT;
+        }
+        Long size = queryVo.getSize();
+        if (size == null) {
+            size = PageConstant.SIZE;
+        }
+        Page<NewsData> page = new Page<>(current, size);
+        PageVo<NewsData> NewPageVo = new PageVo<>();
+//        toDoItemMapper.selectPage(page, queryWrapper);
+        newsDataMapper.selectPage(page,queryWrapper);
+        BeanUtils.copyProperties(page, NewPageVo);
+//        toDoItemPageVo.setPages(page.getPages());
+        NewPageVo.setPages(page.getPages());
+        return NewPageVo;
     }
 }
