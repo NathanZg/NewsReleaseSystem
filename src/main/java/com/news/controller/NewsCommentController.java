@@ -32,10 +32,12 @@ public class NewsCommentController {
     @PostMapping
     public Response<NewsComment> insert(@RequestBody NewsComment newsComment){
         boolean flag=newsCommentService.insert(newsComment);
-        if(flag)
+        if(flag) {
             return ResponseUtils.success(newsComment);
-        else
+        }
+        else {
             return ResponseUtils.fail("insert fail!!!");
+        }
     }
 
     //查看全部数据
@@ -43,10 +45,12 @@ public class NewsCommentController {
     public Response getAll(){
         List<NewsComment> commentList=newsCommentService.getAll();
         boolean flag=commentList!=null?true:false;
-        if(flag)
+        if(flag) {
             return ResponseUtils.success("all success!!!");
-        else
+        }
+        else {
             return ResponseUtils.fail("some fail!!!");
+        }
     }
 
     //查询指定新闻的评论
@@ -54,20 +58,24 @@ public class NewsCommentController {
     public Response getCommentByNews(@PathVariable Integer id){
         List<Comment> commentList=newsCommentService.getCommentByNews(id);
         boolean flag=commentList!=null?true:false;
-        if(flag)
+        if(flag) {
             return ResponseUtils.success(commentList);
-        else
+        }
+        else {
             return ResponseUtils.fail("some fail!!!");
+        }
     }
 
     //删除数据
     @DeleteMapping("/{id}")
     public Response delete(@PathVariable Integer id){
         boolean flag=newsCommentService.delete(id);
-        if(flag)
+        if(flag) {
             return ResponseUtils.success("delete success!!!");
-        else
+        }
+        else {
             return ResponseUtils.fail("delete fail!!!");
+        }
     }
 
 
@@ -75,9 +83,11 @@ public class NewsCommentController {
     @DeleteMapping("/batch_delete")
     public Response batch_delete(@RequestBody String ids){
         boolean flag=newsCommentService.batch_delete(ids);
-        if(flag)
+        if(flag) {
             return ResponseUtils.success("batch_delete success!!!");
-        else
+        }
+        else {
             return ResponseUtils.fail("batch_delete fail!!!");
+        }
     }
 }
