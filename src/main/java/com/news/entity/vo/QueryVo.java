@@ -17,27 +17,37 @@ public class QueryVo {
     /**
      * 新闻id
      */
-//    private Integer NewsId;
-//
-//    /**
-//     * 新闻标题
-//     */
-//    private String NewsTitle;
-//
-//    /**
-//     * 新闻内容
-//     */
-//    private String NewsData;
-//
-//    /**
-//     * 编者
-//     */
-//    private String NewsPublisher;
-//
-//    /**
-//     * 新闻时间
-//     */
-//    private LocalDateTime NewsDate;
+    private Integer id;
+
+    /**
+     * 类型id
+     */
+    private Integer typeId;
+
+    /**
+     * 新闻标题
+     */
+    private String title;
+
+    /**
+     * 新闻内容
+     */
+    private String data;
+
+    /**
+     * 编者
+     */
+    private String publisher;
+
+    /**
+     * 开始时间
+     */
+    private LocalDateTime startDate;
+
+    /**
+     * 结束时间
+     */
+    private LocalDateTime endDate;
 
     /**
      * 当前页

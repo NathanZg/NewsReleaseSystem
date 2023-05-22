@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.TabExpander;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -101,6 +102,34 @@ public class NewsDataServiceImpl extends ServiceImpl<NewsDataMapper, NewsData> i
             return null;
         }
         QueryWrapper<NewsData> queryWrapper = new QueryWrapper<>();
+        Integer id = queryVo.getId();
+        if (id != null) {
+            queryWrapper.eq("id", id);
+        }
+        Integer typeId = queryVo.getTypeId();
+        if (typeId != null) {
+            queryWrapper.eq("type_id", typeId);
+        }
+        String title = queryVo.getTitle();
+        if (title != null) {
+            queryWrapper.like("title", title);
+        }
+        String data = queryVo.getData();
+        if (data != null) {
+            queryWrapper.like("data", data);
+        }
+        String publisher = queryVo.getPublisher();
+        if (publisher != null) {
+            queryWrapper.like("publisher", publisher);
+        }
+        LocalDateTime startDate = queryVo.getStartDate();
+        if (startDate != null) {
+            queryWrapper.ge("creation_date", startDate);
+        }
+        LocalDateTime endDate = queryVo.getEndDate();
+        if (endDate != null) {
+            queryWrapper.le("creation_date", endDate);
+        }
         Long current = queryVo.getCurrent();
         if (current == null) {
             current = PageConstant.CURRENT;
@@ -115,13 +144,5 @@ public class NewsDataServiceImpl extends ServiceImpl<NewsDataMapper, NewsData> i
         BeanUtils.copyProperties(page, newPageVo);
         newPageVo.setPages(page.getPages());
         return newPageVo;
-    }
-
-    @Override
-    public List<NewsData> getAllNewsByType(Integer id) {
-        if (id == null) {
-            return null;
-        }
-        return newsDataMapper.getAllNewsByType(id);
     }
 }

@@ -1,7 +1,7 @@
 package com.news.service;
 
-import com.news.entity.NewsData;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.news.entity.NewsData;
 import com.news.entity.vo.PageVo;
 import com.news.entity.vo.QueryVo;
 
@@ -11,6 +11,9 @@ import java.util.List;
  * <p>
  *  服务类
  * </p>
+ *
+ * @author Sancean
+ * @since 2023-05-18
  */
 public interface NewsDataService extends IService<NewsData> {
     /**
@@ -53,12 +56,4 @@ public interface NewsDataService extends IService<NewsData> {
      * @return PageVo 前端页面封装
      */
     PageVo<NewsData> pageQueryByCondition(QueryVo queryVo);
-
-    /**
-     *根据类型id获取对应的新闻
-     * @param id 类型id
-     * @return 对应类型的新闻集合
-     */
-    List<NewsData> getAllNewsByType(Integer id);
-
 }

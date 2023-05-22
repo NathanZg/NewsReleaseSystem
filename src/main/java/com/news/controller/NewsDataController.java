@@ -57,18 +57,8 @@ public class NewsDataController {
             return ResponseUtils.fail("Failed to Delete newsData !");
         }
     }
-    @PostMapping("/selectNewsByType")
-    public Response<List<NewsData>> selectNewsByType(@RequestBody String typeId){
-        List<NewsData> all = newsDataService.getAllNewsByType(Integer.parseInt(typeId));
-        if(all!=null){
-            return ResponseUtils.success(all);
-        }
-        else{
-            return ResponseUtils.fail("Failed to selectALL newsData !");
-        }
-    }
 
-    @PostMapping("/selectPage")
+    @PostMapping("/pageQueryByCondition")
     public Response<List<NewsData>> pageQueryByCondition(@RequestBody QueryVo queryVo){
         PageVo<NewsData> newsDataPageVo=newsDataService.pageQueryByCondition(queryVo);
         boolean flag= newsDataPageVo != null;
@@ -76,7 +66,7 @@ public class NewsDataController {
             return ResponseUtils.success(newsDataPageVo.getRecords());
         }
         else {
-            return ResponseUtils.fail("pageselect fail!!!");
+            return ResponseUtils.fail("pageQueryByCondition fail!!!");
         }
     }
 
