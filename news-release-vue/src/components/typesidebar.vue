@@ -2,8 +2,8 @@
   <el-row class="tac">
     <el-col :span="24">
       <h5 class="mb-2">新闻分类</h5>
-      <el-menu default-active="2" class="el-menu-vertical-demo">
-        <el-menu-item v-for="t in types" index="2">
+      <el-menu default-active="2" @select="handleSelect" class="el-menu-vertical-demo">
+        <el-menu-item v-for="t in types" :index="String(t.id)">
           <el-icon><icon-menu /></el-icon>
           <span>{{ t.type}}</span>
         </el-menu-item>
@@ -27,12 +27,20 @@ const prop = defineProps({
     default: ref([])
   }
 })
+const emit = defineEmits(
+  [
+    'clickType'
+  ]
+);
 const types = ref<any>([])
 function getTypes() {
   typeSelect().then((res)=> {
     types.value = res.data.data
   })
 }
+function handleSelect(key: string, keyPath: string[]) {
+  emit('clickType', key)
+} 
 onMounted(() => {
   getTypes()
 })

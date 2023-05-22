@@ -7,7 +7,7 @@
             <el-main class="el-main">
                 <el-container>
                     <el-aside>
-                        <TypeSideBar/>
+                        <TypeSideBar @clickType="getNewsListByType"/>
                     </el-aside>
                     <el-main>
                         <NewsList :newsList="list"/>
@@ -21,11 +21,16 @@
 import TopHeader from '@/components/header.vue';
 import NewsList from '@/components/newslist.vue';
 import TypeSideBar from '@/components/typesidebar.vue';
-import { newsSelect } from '@/api/news';
+import { newsSelect,getNewsByType } from '@/api/news';
 import { ref,reactive, onMounted } from 'vue';
 const list = ref([])
 function getNews() {
     newsSelect({}).then((res)=>{
+        list.value = res.data.data
+    })
+}
+function getNewsListByType(id: string) {
+    getNewsByType(id).then((res) => {
         list.value = res.data.data
     })
 }

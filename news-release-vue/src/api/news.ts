@@ -33,3 +33,14 @@ export function newsUpdate(news: object) {
         data: news
     })
 }
+
+export function getNewsByType(id: string) {
+    return httpService({
+        url: '/selectNewsByType',
+        method: 'post',
+        data: id,
+        headers: {
+            'Content-Type': 'text/plain'
+        }
+    })
+}
