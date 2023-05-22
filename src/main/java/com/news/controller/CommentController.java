@@ -2,12 +2,9 @@ package com.news.controller;
 
 import com.news.entity.Comment;
 import com.news.service.CommentService;
-import com.news.service.NewsCommentService;
 import com.news.utils.Response;
 import com.news.utils.ResponseUtils;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
@@ -28,7 +25,11 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    //添加数据
+    /**
+     * 新增评论
+     * @param comment 评论实体类
+     * @return Response<Comment>
+     */
     @PostMapping
     public Response<Comment> insert(@RequestBody Comment comment){
         boolean flag=commentService.insert(comment);
@@ -40,11 +41,14 @@ public class CommentController {
         }
     }
 
-    //查看数据
+    /**
+     * 获取新闻对应所有评论
+     * @return Response<List<Comment>>
+     */
     @GetMapping
-    public Response getAll(){
+    public Response<List<Comment>> getAll(){
         List<Comment> commentList=commentService.getAll();
-        boolean flag=commentList!=null?true:false;
+        boolean flag= commentList != null;
         if(flag) {
             return ResponseUtils.success(commentList);
         }
@@ -53,7 +57,11 @@ public class CommentController {
         }
     }
 
-    //删除数据
+    /**
+     * 删除评论
+     * @param id 评论id
+     * @return Response
+     */
     @DeleteMapping("{id}")
     public Response delete(@PathVariable Integer id){
         boolean flag=commentService.delete(id);
@@ -65,7 +73,11 @@ public class CommentController {
         }
     }
 
-    //根据id修改数据
+    /**
+     * 修改评论
+     * @param comment 评论实体类
+     * @return Response
+     */
     @PutMapping
     public Response update(@RequestBody Comment comment){
         boolean flag=commentService.updateId(comment);
@@ -77,15 +89,19 @@ public class CommentController {
         }
     }
 
-    //批量删除
-    @DeleteMapping("/batch_delete")
-    public Response batch_delete(@RequestBody String Ids){
-        boolean flag=commentService.batch_delete(Ids);
+    /**
+     * 批量删除
+     * @param ids 以逗号分割的id序列
+     * @return Response
+     */
+    @DeleteMapping("/batchDelete")
+    public Response batchDelete(@RequestBody String ids){
+        boolean flag=commentService.batchDelete(ids);
         if(flag) {
-            return ResponseUtils.success("batch_delete success!!!");
+            return ResponseUtils.success("batchDelete success!!!");
         }
         else {
-            return ResponseUtils.fail("batch_delete fail!!!");
+            return ResponseUtils.fail("batchDelete fail!!!");
         }
     }
 }

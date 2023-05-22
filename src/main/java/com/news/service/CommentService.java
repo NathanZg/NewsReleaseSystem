@@ -48,5 +48,5 @@ public interface CommentService extends IService<Comment> {
      * @param deleteIds 评论id列
      * @return 删除成功(true)/删除失败(false)
      */
-    public boolean batch_delete(String deleteIds);
+    public boolean batchDelete(String deleteIds);
 }

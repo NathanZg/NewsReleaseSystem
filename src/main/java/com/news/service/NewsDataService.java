@@ -54,4 +54,11 @@ public interface NewsDataService extends IService<NewsData> {
      */
     PageVo<NewsData> pageQueryByCondition(QueryVo queryVo);
 
+    /**
+     *根据类型id获取对应的新闻
+     * @param id 类型id
+     * @return 对应类型的新闻集合
+     */
+    List<NewsData> getAllNewsByType(Integer id);
+
 }

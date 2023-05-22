@@ -79,13 +79,15 @@ public class NewsDataServiceImpl extends ServiceImpl<NewsDataMapper, NewsData> i
      */
     @Override
     public boolean deleteData(String ids){
-        if(ids==null) return false;
-        String[] id = ids.split(",");
-        ArrayList<Integer> ID = new ArrayList<>();
-        for(String s:id){
-            ID.add(Integer.parseInt(s));
+        if(ids==null) {
+            return false;
         }
-        return newsDataMapper.deleteBatchIds(ID)>=1;
+        String[] id = ids.split(",");
+        ArrayList<Integer> idList = new ArrayList<>();
+        for(String s:id){
+            idList.add(Integer.parseInt(s));
+        }
+        return newsDataMapper.deleteBatchIds(idList)>=1;
     }
 
     /**
@@ -108,10 +110,18 @@ public class NewsDataServiceImpl extends ServiceImpl<NewsDataMapper, NewsData> i
             size = PageConstant.SIZE;
         }
         Page<NewsData> page = new Page<>(current, size);
-        PageVo<NewsData> NewPageVo = new PageVo<>();
+        PageVo<NewsData> newPageVo = new PageVo<>();
         newsDataMapper.selectPage(page,queryWrapper);
-        BeanUtils.copyProperties(page, NewPageVo);
-        NewPageVo.setPages(page.getPages());
-        return NewPageVo;
+        BeanUtils.copyProperties(page, newPageVo);
+        newPageVo.setPages(page.getPages());
+        return newPageVo;
+    }
+
+    @Override
+    public List<NewsData> getAllNewsByType(Integer id) {
+        if (id == null) {
+            return null;
+        }
+        return newsDataMapper.getAllNewsByType(id);
     }
 }

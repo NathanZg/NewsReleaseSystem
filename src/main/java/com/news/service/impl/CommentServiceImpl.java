@@ -47,7 +47,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     }
 
     @Override
-    public boolean batch_delete(String deleteIds) {
+    public boolean batchDelete(String deleteIds) {
         if (deleteIds == null || "".equals(deleteIds)) {
             return false;
         }

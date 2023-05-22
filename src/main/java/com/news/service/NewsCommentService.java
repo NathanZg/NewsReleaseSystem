@@ -30,11 +30,11 @@ public interface NewsCommentService extends IService<NewsComment> {
     boolean delete(Integer id);
 
     /**
-     *
-     * @param deleteIds
-     * @return
+     *批量删除关联信息
+     * @param deleteIds 以逗号分割的id序列
+     * @return 成功 true 失败 false
      */
-    boolean batch_delete(String deleteIds);
+    boolean batchDelete(String deleteIds);
 
     /**
      * 查询全部
@@ -43,6 +43,10 @@ public interface NewsCommentService extends IService<NewsComment> {
      */
     List<NewsComment> getAll();
 
-    //更具新闻id获取评论数据
+    /**
+     * 根据新闻id获取对应的评论
+     * @param id 新闻id
+     * @return List<Comment>
+     */
     List<Comment> getCommentByNews(Integer id);
 }

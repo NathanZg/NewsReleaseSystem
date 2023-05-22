@@ -1,10 +1,8 @@
 package com.news.controller;
 
 import com.news.entity.NewsData;
-import com.news.entity.Type;
 import com.news.entity.vo.PageVo;
 import com.news.entity.vo.QueryVo;
-import com.news.mapper.NewsDataMapper;
 import com.news.service.NewsDataService;
 import com.news.utils.Response;
 import com.news.utils.ResponseUtils;
@@ -24,10 +22,8 @@ import java.util.List;
 @RequestMapping("/api")
 public class NewsDataController {
     private NewsDataService newsDataService;
-    private NewsDataMapper newsDataMapper;
-    public NewsDataController(NewsDataService newsDataService, NewsDataMapper newsDataMapper) {
+    public NewsDataController(NewsDataService newsDataService) {
         this.newsDataService = newsDataService;
-        this.newsDataMapper = newsDataMapper;
     }
     @PostMapping("/newsSelect")
     public Response<List<NewsData>> newsSelect() {
@@ -61,10 +57,9 @@ public class NewsDataController {
             return ResponseUtils.fail("Failed to Delete newsData !");
         }
     }
-    @PostMapping("/selectALL")
-    public Response<List<NewsData>> selectALL(@RequestBody Type type){
-        Integer id = type.getId();
-        List<NewsData> all = newsDataMapper.getALL(id);
+    @PostMapping("/selectNewsByType")
+    public Response<List<NewsData>> selectNewsByType(@RequestBody String typeId){
+        List<NewsData> all = newsDataService.getAllNewsByType(Integer.parseInt(typeId));
         if(all!=null){
             return ResponseUtils.success(all);
         }
@@ -76,7 +71,7 @@ public class NewsDataController {
     @PostMapping("/selectPage")
     public Response<List<NewsData>> pageQueryByCondition(@RequestBody QueryVo queryVo){
         PageVo<NewsData> newsDataPageVo=newsDataService.pageQueryByCondition(queryVo);
-        boolean flag=newsDataPageVo!=null?true:false;
+        boolean flag= newsDataPageVo != null;
         if(flag){
             return ResponseUtils.success(newsDataPageVo.getRecords());
         }

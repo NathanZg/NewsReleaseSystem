@@ -49,7 +49,7 @@ public class NewsCommentServiceImpl extends ServiceImpl<NewsCommentMapper, NewsC
     }
 
     @Override
-    public boolean batch_delete(String deleteIds) {
+    public boolean batchDelete(String deleteIds) {
         if (deleteIds == null || "".equals(deleteIds)) {
             return false;
         }

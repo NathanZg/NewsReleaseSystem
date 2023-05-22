@@ -12,6 +12,9 @@ import java.util.List;
  * <p>
  *  Mapper 接口
  * </p>
+ *
+ *  @author Sancean
+ *  @since 2023-05-19
  */
 @Mapper
 public interface NewsDataMapper extends BaseMapper<NewsData> {
@@ -21,5 +24,5 @@ public interface NewsDataMapper extends BaseMapper<NewsData> {
      * @return list<NewsData>集合
      */
     @Select("select * from news_data where id in(select news_id from news_type where type_id=#{id})")
-    List<NewsData> getALL(Integer id);
+    List<NewsData> getAllNewsByType(Integer id);
 }

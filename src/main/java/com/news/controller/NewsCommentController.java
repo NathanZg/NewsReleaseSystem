@@ -2,12 +2,10 @@ package com.news.controller;
 
 import com.news.entity.Comment;
 import com.news.entity.NewsComment;
-import com.news.service.CommentService;
 import com.news.service.NewsCommentService;
 import com.news.utils.Response;
 import com.news.utils.ResponseUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
@@ -28,45 +26,60 @@ public class NewsCommentController {
         this.newsCommentService = newsCommentService;
     }
 
-    //添加数据
+    /**
+     * 添加新闻与评论的关联信息
+     * @param newsComment 关联实体类
+     * @return
+     */
     @PostMapping
-    public Response<NewsComment> insert(@RequestBody NewsComment newsComment){
+    public Response insert(@RequestBody NewsComment newsComment){
         boolean flag=newsCommentService.insert(newsComment);
         if(flag) {
-            return ResponseUtils.success(newsComment);
+            return ResponseUtils.success("insert success!");
         }
         else {
-            return ResponseUtils.fail("insert fail!!!");
+            return ResponseUtils.fail("insert fail!");
         }
     }
 
-    //查看全部数据
+    /**
+     * 查询所有关联数据
+     * @return Response
+     */
     @GetMapping
     public Response getAll(){
-        List<NewsComment> commentList=newsCommentService.getAll();
-        boolean flag=commentList!=null?true:false;
+        List<NewsComment> newsCommentList=newsCommentService.getAll();
+        boolean flag= newsCommentList != null;
         if(flag) {
-            return ResponseUtils.success("all success!!!");
+            return ResponseUtils.success("get all NewsComment data success!!!");
         }
         else {
-            return ResponseUtils.fail("some fail!!!");
+            return ResponseUtils.fail("get all NewsComment data fail!!!");
         }
     }
 
-    //查询指定新闻的评论
+    /**
+     * 查询指定新闻的评论
+     * @param id 新闻id
+     * @return
+     */
     @GetMapping("/{id}")
-    public Response getCommentByNews(@PathVariable Integer id){
+    public Response<List<Comment>> getCommentByNews(@PathVariable Integer id){
         List<Comment> commentList=newsCommentService.getCommentByNews(id);
-        boolean flag=commentList!=null?true:false;
+        boolean flag= commentList != null;
         if(flag) {
             return ResponseUtils.success(commentList);
         }
         else {
-            return ResponseUtils.fail("some fail!!!");
+            return ResponseUtils.fail("get comments by newsId fail!!!");
         }
     }
 
-    //删除数据
+    /**
+     * 删除关联信息
+     * @param id 评论id
+     * @return Response
+     */
     @DeleteMapping("/{id}")
     public Response delete(@PathVariable Integer id){
         boolean flag=newsCommentService.delete(id);
@@ -79,15 +92,19 @@ public class NewsCommentController {
     }
 
 
-    //批量删除
-    @DeleteMapping("/batch_delete")
-    public Response batch_delete(@RequestBody String ids){
-        boolean flag=newsCommentService.batch_delete(ids);
+    /**
+     * 批量删除关联信息
+     * @param ids 以逗号分割的id序列
+     * @return Response
+     */
+    @DeleteMapping("/batchDelete")
+    public Response batchDelete(@RequestBody String ids){
+        boolean flag=newsCommentService.batchDelete(ids);
         if(flag) {
-            return ResponseUtils.success("batch_delete success!!!");
+            return ResponseUtils.success("batchDelete success!!!");
         }
         else {
-            return ResponseUtils.fail("batch_delete fail!!!");
+            return ResponseUtils.fail("batchDelete fail!!!");
         }
     }
 }
