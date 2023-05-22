@@ -34,10 +34,6 @@ const prop = defineProps({
     default: ref([])
   }
 })
-var newsList = prop.newsList
-watch(prop.newsList, () => {
-  newsList = prop.newsList
-})
 function getImgSrc(id: number) {
   if(id % 3 == 0) {
     return "https://api.ghser.com/random/fengjing.php"

@@ -59,11 +59,11 @@ public class NewsDataController {
     }
 
     @PostMapping("/pageQueryByCondition")
-    public Response<List<NewsData>> pageQueryByCondition(@RequestBody QueryVo queryVo){
+    public Response<PageVo<NewsData>> pageQueryByCondition(@RequestBody QueryVo queryVo){
         PageVo<NewsData> newsDataPageVo=newsDataService.pageQueryByCondition(queryVo);
         boolean flag= newsDataPageVo != null;
         if(flag){
-            return ResponseUtils.success(newsDataPageVo.getRecords());
+            return ResponseUtils.success(newsDataPageVo);
         }
         else {
             return ResponseUtils.fail("pageQueryByCondition fail!!!");

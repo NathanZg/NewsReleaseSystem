@@ -44,3 +44,11 @@ export function getNewsByType(id: string) {
         }
     })
 }
+
+export function pageQueryByCondition(queryVo: object) {
+    return httpService({
+        url: '/pageQueryByCondition',
+        method: 'post',
+        data: queryVo,
+    })
+}
