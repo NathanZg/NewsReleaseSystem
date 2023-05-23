@@ -4,9 +4,9 @@
     mode="horizontal"
     :ellipsis="false"
   >
-    <el-menu-item>LOGO</el-menu-item>
+    <el-menu-item><a href="/">新闻首页</a></el-menu-item>
     <div class="flex-grow" />
-    <el-menu-item>Processing Center</el-menu-item>
+    <el-menu-item>个人中心</el-menu-item>
   </el-menu>
 </template>
 
