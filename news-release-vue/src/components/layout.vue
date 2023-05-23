@@ -58,7 +58,7 @@ function getNewsByCondition(queryVo: object) {
         } else {
             ElNotification.error({
                 title: 'error',
-                message: data.msg,
+                message: res.data.msg,
                 offset: 100
             })
         }

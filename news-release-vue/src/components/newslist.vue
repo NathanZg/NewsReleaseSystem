@@ -2,13 +2,13 @@
   <div class="bloglist">
     <div class="blogs" v-for="news in prop.newsList">
       <article class="excerpt">
-        <a :href=news.id target="_blank" class="focus">
+        <a :href="'/detail/' + news.id" target="_blank" class="focus">
           <!--data-src="../assets/img/wechat.jpg",-->
           <img :src="getImgSrc(news.id)" alt="1">
         </a>
         <!--标题-->
         <header>
-          <a :href=news.id target="_blank">
+          <a :href="'/detail/' + news.id" target="_blank">
             {{ news.title }}
           </a>
         </header>
@@ -40,7 +40,7 @@ function getImgSrc(id: number) {
   } else if(id % 3 == 1){
     return "https://api.vvhan.com/api/view"
   } else {
-    return "https://tu.ltyuanfang.cn/api/fengjing.php"
+    return "https://api.biuioi.com/random-picture/index.php"
   }
 }
 </script>

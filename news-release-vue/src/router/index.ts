@@ -10,7 +10,7 @@ const router = createRouter({
       component: layoutVue
     },
     {
-      path: '/detail',
+      path: '/detail/:id',
       name: 'detail',
       component: newsDetailVue
     },

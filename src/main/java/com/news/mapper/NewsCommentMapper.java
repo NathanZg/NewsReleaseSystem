@@ -19,6 +19,6 @@ import java.util.List;
 @Mapper
 public interface NewsCommentMapper extends BaseMapper<NewsComment> {
 
-    @Select("select* from comment where id in(select comment_id from news_comment where news_comment.news_id=#{id})")
+    @Select("select * from comment where id in(select comment_id from news_comment where news_comment.news_id=#{id})")
     public List<Comment> getCommentByNews(Integer id);
 }
