@@ -122,22 +122,4 @@ onMounted(() => {
     box-sizing: border-box;
     padding: var(--el-main-padding);
 }
-
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.text {
-    font-size: 14px;
-}
-
-.item {
-    margin-bottom: 18px;
-}
-
-.box-card {
-    width: 480px;
-}
 </style>
