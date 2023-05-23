@@ -1,6 +1,10 @@
 package com.news.controller;
 
 import com.news.entity.Comment;
+import com.news.entity.NewsData;
+import com.news.entity.vo.CommentQueryVo;
+import com.news.entity.vo.PageVo;
+import com.news.entity.vo.QueryVo;
 import com.news.service.CommentService;
 import com.news.utils.Response;
 import com.news.utils.ResponseUtils;
@@ -102,6 +106,18 @@ public class CommentController {
         }
         else {
             return ResponseUtils.fail("batchDelete fail!!!");
+        }
+    }
+
+    @PostMapping("/pageQueryByCondition")
+    public Response<PageVo<Comment>> pageQueryByCondition(@RequestBody CommentQueryVo queryVo){
+        PageVo<Comment> newsDataPageVo = commentService.pageQueryByCondition(queryVo);
+        boolean flag= newsDataPageVo != null;
+        if(flag){
+            return ResponseUtils.success(newsDataPageVo);
+        }
+        else {
+            return ResponseUtils.fail("pageQueryByCondition fail!!!");
         }
     }
 }
