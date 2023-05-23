@@ -52,3 +52,10 @@ export function pageQueryByCondition(queryVo: object) {
         data: queryVo,
     })
 }
+
+export function getNewsDetailById(id: any) {
+    return httpService({
+        url: `/newsDetail/${id}`,
+        method: 'get'
+    })
+}

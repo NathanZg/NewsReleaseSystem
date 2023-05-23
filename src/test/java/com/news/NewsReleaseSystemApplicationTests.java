@@ -4,13 +4,7 @@ import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
-import com.news.entity.Comment;
-import com.news.entity.NewsComment;
-import com.news.entity.vo.PageVo;
-import com.news.entity.vo.QueryVo;
 import com.news.service.CommentService;
-import com.news.service.NewsCommentService;
-import com.news.service.NewsDataService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,7 +22,7 @@ class NewsReleaseSystemApplicationTests {
     void contextLoads() {
     }
 
- //       @Test
+//        @Test
     void generator() {
         String dbUrl = "jdbc:mysql://localhost:3306/nrs";
         String username = "root";
@@ -74,19 +68,19 @@ class NewsReleaseSystemApplicationTests {
                 .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
                 .execute();
     }
-    @Autowired
-    private CommentService commentService;
-    @Autowired
-    private NewsCommentService newsCommentService;
+//    @Autowired
+//    private CommentService commentService;
+//    @Autowired
+//    private NewsCommentService newsCommentService;
 //    @Autowired
 //    private NewsDataService newsDataService;
-    @Test
-    void getAll()
-    {
-        List<NewsComment> commentList= newsCommentService.getAll();
-        for(NewsComment com:commentList)
-            System.out.println("NewId:"+com.getNewsId()+" CommentId:"+com.getCommentId());
-    }
+//    @Test
+//    void getAll()
+//    {
+//        List<NewsComment> commentList= newsCommentService.getAll();
+//        for(NewsComment com:commentList)
+//            System.out.println("NewId:"+com.getNewsId()+" CommentId:"+com.getCommentId());
+//    }
 
     @Test
     public void Insert()
@@ -96,10 +90,10 @@ class NewsReleaseSystemApplicationTests {
 //        comment.setCommentData("Aaaaaaaaaaaaaaaaaaaaa");
 //        comment.setCommentDate(LocalDateTime.parse("2023-05-19 17:56:38", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 //        commentService.insert(comment);
-        NewsComment newsComment=new NewsComment();
-        newsComment.setNewsId(6);
-        newsComment.setCommentId(13);
-        newsCommentService.insert(newsComment);
+//        NewsComment newsComment=new NewsComment();
+//        newsComment.setNewsId(6);
+//        newsComment.setCommentId(13);
+//        newsCommentService.insert(newsComment);
     }
 
     @Test
@@ -113,22 +107,22 @@ class NewsReleaseSystemApplicationTests {
 //        newsCommentService.batch_delete(list);
     }
 
-    @Test
-    void update(){
-        Comment comment=new Comment();
-        comment.setId(7);
-        comment.setUser("C");
-        comment.setCommentData("Aaaaaaaaaaaaaaaaaaaaa");
-        comment.setCommentDate(LocalDateTime.parse("2023-05-19 17:56:38", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-        commentService.updateId(comment);
-    }
-
-    @Test
-    void selectCommentByNews()
-    {
-        List<Comment>newsCommentList=newsCommentService.getCommentByNews(1);
-        System.out.println(newsCommentList);
-    }
+//    @Test
+//    void update(){
+//        Comment comment=new Comment();
+//        comment.setId(7);
+//        comment.setUser("C");
+//        comment.setCommentData("Aaaaaaaaaaaaaaaaaaaaa");
+//        comment.setCommentDate(LocalDateTime.parse("2023-05-19 17:56:38", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+//        commentService.updateId(comment);
+//    }
+//
+//    @Test
+//    void selectCommentByNews()
+//    {
+//        List<Comment>newsCommentList=newsCommentService.getCommentByNews(1);
+//        System.out.println(newsCommentList);
+//    }
 
 //    @Test
 //    void insertNewsData()

@@ -1,13 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
+import layoutVue from '@/components/layout.vue'
+import newsDetailVue from '@/views/newsDetail.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    // {
-    //   path: '/',
-    //   name: 'home',
-    //   component: HomeView
-    // },
+    {
+      path: '/',
+      name: 'layoutVue',
+      component: layoutVue
+    },
+    {
+      path: '/detail/:id',
+      name: 'detail',
+      component: newsDetailVue
+    },
     // {
     //   path: '/about',
     //   name: 'about',

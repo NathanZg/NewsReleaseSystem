@@ -1,8 +1,11 @@
 package com.news.controller;
 
+import com.news.entity.Comment;
 import com.news.entity.NewsData;
+import com.news.entity.vo.NewsDetail;
 import com.news.entity.vo.PageVo;
 import com.news.entity.vo.QueryVo;
+import com.news.service.CommentService;
 import com.news.service.NewsDataService;
 import com.news.utils.Response;
 import com.news.utils.ResponseUtils;
@@ -22,9 +25,13 @@ import java.util.List;
 @RequestMapping("/api")
 public class NewsDataController {
     private NewsDataService newsDataService;
-    public NewsDataController(NewsDataService newsDataService) {
+    private CommentService commentService;
+
+    public NewsDataController(NewsDataService newsDataService, CommentService commentService) {
         this.newsDataService = newsDataService;
+        this.commentService = commentService;
     }
+
     @PostMapping("/newsSelect")
     public Response<List<NewsData>> newsSelect() {
         List<NewsData> allData = newsDataService.getAllData();
@@ -70,4 +77,17 @@ public class NewsDataController {
         }
     }
 
+    @GetMapping("/newsDetail/{id}")
+    public Response<NewsDetail> getNewsDetailById(@PathVariable Integer id){
+        PageVo<Comment> commentPageVo = commentService.pageQueryByNewsId(id);
+        NewsData data = newsDataService.getData(id);
+        NewsDetail newsDetail = new NewsDetail(data, commentPageVo);
+        boolean flag= data != null;
+        if(flag) {
+            return ResponseUtils.success(newsDetail);
+        }
+        else {
+            return ResponseUtils.fail("get newsDetail by newsId fail!!!");
+        }
+    }
 }
