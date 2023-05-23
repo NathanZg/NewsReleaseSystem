@@ -44,13 +44,13 @@
                             <div class="Pagination" style="text-align: left;margin-top: 10px;">
                                 <el-pagination background layout="prev, pager, next" @prev-click="prevClick"
                                     @next-click="nextClick" @current-change="currentChange" :total="commentPageVo.total"
-                                    :page-count="commentPageVo.pages" />
+                                    :page-count="commentPageVo.pages"/>
                             </div>
                             <div class="repaly-root">
-                                <el-input type="textarea" :autosize="{ minRows: 1, maxRows: 20 }" placeholder="请输入内容"
-                                    style="width: 700px;">
+                                <el-input v-model="comment.commentData" type="textarea"
+                                    :autosize="{ minRows: 5, maxRows: 20 }" placeholder="请输入内容" style="width: 700px;">
                                 </el-input>
-                                <el-button type="primary" size="small" style="margin-left: 10px;">发布</el-button>
+                                <el-button @click="addComment" type="primary" size="small" style="margin-left: 10px;">发布</el-button>
                             </div>
                         </div>
                     </el-col>
@@ -63,10 +63,10 @@
 </template>
 <script lang="ts" setup>
 import TopHeader from '@/components/header.vue'
-import { reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { getNewsDetailById } from '@/api/news'
-import { pageQueryCommentByCondition } from '@/api/comment'
+import { pageQueryCommentByCondition, insertComment } from '@/api/comment'
 const router = useRouter()
 const news = reactive({
     id: null,
@@ -87,11 +87,18 @@ const commentQueryVo = reactive({
     id: null,
     user: null,
     commentData: null,
-    newsId: null,
+    newsId: router.currentRoute.value.params.id,
     startDate: null,
     endDate: null,
-    current: null,
-    size: null
+    current: 1,
+    size: 5
+})
+const comment = reactive({
+    id: null,
+    user: 'test',
+    commentData: null,
+    commentDate: null,
+    newsId: router.currentRoute.value.params.id
 })
 function getNewsDetail() {
     var newsId = router.currentRoute.value.params.id;
@@ -116,7 +123,7 @@ function getNewsDetail() {
                 offset: 100
             })
         }
-    }).then((res) => {
+    }).catch((error) => {
         console.log(error)
         ElNotification.error({
             title: 'error',
@@ -165,6 +172,28 @@ function nextClick(value: any) {
 function currentChange(value: any) {
     commentQueryVo.current = value
     getComment(commentQueryVo)
+}
+
+function addComment() {
+    insertComment(comment).then((res) => {
+        if (res.data.code == 200) {
+            comment.commentData = null
+            getComment(commentQueryVo)
+        } else {
+            ElNotification.error({
+                title: 'error',
+                message: error,
+                offset: 100
+            })
+        }
+    }).catch((error) => {
+        console.log(error)
+        ElNotification.error({
+            title: 'error',
+            message: error,
+            offset: 100
+        })
+    })
 }
 onMounted(() => {
     getNewsDetail()

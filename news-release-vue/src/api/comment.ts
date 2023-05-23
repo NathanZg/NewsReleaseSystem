@@ -3,6 +3,14 @@ export function pageQueryCommentByCondition(queryVo: object) {
     return httpService({
         url: '/comment/pageQueryByCondition',
         method: 'post',
-        data: queryVo,
+        data: queryVo
+    })
+}
+
+export function insertComment(comment: object) {
+    return httpService({
+        url: '/comment',
+        method: 'post',
+        data: comment
     })
 }

@@ -38,7 +38,7 @@ public class CommentController {
     public Response<Comment> insert(@RequestBody Comment comment){
         boolean flag=commentService.insert(comment);
         if(flag){
-            return ResponseUtils.success(comment);
+            return ResponseUtils.success("insert successfully！");
         }
         else {
             return ResponseUtils.fail("insert fail!!!");

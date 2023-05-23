@@ -42,6 +42,10 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
 
     @Override
     public boolean insert(Comment comment) {
+        LocalDateTime commentDate = comment.getCommentDate();
+        if (commentDate == null) {
+            comment.setCommentDate(LocalDateTime.now());
+        }
         return commentMapper.insert(comment)>0;
     }
 
