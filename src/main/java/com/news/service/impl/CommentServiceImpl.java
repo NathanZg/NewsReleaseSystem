@@ -1,9 +1,14 @@
 package com.news.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.news.constants.PageConstant;
 import com.news.entity.Comment;
+import com.news.entity.vo.PageVo;
 import com.news.mapper.CommentMapper;
 import com.news.service.CommentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -61,6 +66,18 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
             }
         }
         return commentMapper.deleteBatchIds(idList)>0;
+    }
+
+    @Override
+    public PageVo<Comment> pageQueryByNewsId(Integer id) {
+        QueryWrapper<Comment> wrapper = new QueryWrapper<>();
+        wrapper.eq("news_id", id);
+        Page<Comment> page = new Page<>(PageConstant.CURRENT, PageConstant.SIZE);
+        commentMapper.selectPage(page, wrapper);
+        PageVo<Comment> commentPageVo = new PageVo<>();
+        BeanUtils.copyProperties(page, commentPageVo);
+        commentPageVo.setPages(page.getPages());
+        return commentPageVo;
     }
 
 

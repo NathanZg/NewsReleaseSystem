@@ -17,5 +17,5 @@ import java.util.List;
 @NoArgsConstructor
 public class NewsDetail {
     private NewsData news;
-    private List<Comment> commentList;
+    private PageVo<Comment> commentPageVo;
 }

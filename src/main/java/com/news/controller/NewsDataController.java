@@ -5,7 +5,7 @@ import com.news.entity.NewsData;
 import com.news.entity.vo.NewsDetail;
 import com.news.entity.vo.PageVo;
 import com.news.entity.vo.QueryVo;
-import com.news.service.NewsCommentService;
+import com.news.service.CommentService;
 import com.news.service.NewsDataService;
 import com.news.utils.Response;
 import com.news.utils.ResponseUtils;
@@ -25,11 +25,11 @@ import java.util.List;
 @RequestMapping("/api")
 public class NewsDataController {
     private NewsDataService newsDataService;
-    private NewsCommentService newsCommentService;
+    private CommentService commentService;
 
-    public NewsDataController(NewsDataService newsDataService, NewsCommentService newsCommentService) {
+    public NewsDataController(NewsDataService newsDataService, CommentService commentService) {
         this.newsDataService = newsDataService;
-        this.newsCommentService = newsCommentService;
+        this.commentService = commentService;
     }
 
     @PostMapping("/newsSelect")
@@ -79,9 +79,9 @@ public class NewsDataController {
 
     @GetMapping("/newsDetail/{id}")
     public Response<NewsDetail> getNewsDetailById(@PathVariable Integer id){
-        List<Comment> commentList=newsCommentService.getCommentByNews(id);
+        PageVo<Comment> commentPageVo = commentService.pageQueryByNewsId(id);
         NewsData data = newsDataService.getData(id);
-        NewsDetail newsDetail = new NewsDetail(data, commentList);
+        NewsDetail newsDetail = new NewsDetail(data, commentPageVo);
         boolean flag= data != null;
         if(flag) {
             return ResponseUtils.success(newsDetail);
