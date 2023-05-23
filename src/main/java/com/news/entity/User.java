@@ -2,6 +2,8 @@ package com.news.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+
+import java.io.Serial;
 import java.io.Serializable;
 
 import lombok.*;
@@ -19,6 +21,7 @@ import lombok.*;
 @NoArgsConstructor
 public class User implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
@@ -38,4 +41,9 @@ public class User implements Serializable {
      * 用户权限
      */
     private String role;
+
+    public User( String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
 }
