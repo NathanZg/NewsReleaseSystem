@@ -4,13 +4,17 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.news.constants.PageConstant;
 import com.news.entity.Comment;
+import com.news.entity.NewsData;
+import com.news.entity.vo.CommentQueryVo;
 import com.news.entity.vo.PageVo;
+import com.news.entity.vo.QueryVo;
 import com.news.mapper.CommentMapper;
 import com.news.service.CommentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +42,10 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
 
     @Override
     public boolean insert(Comment comment) {
+        LocalDateTime commentDate = comment.getCommentDate();
+        if (commentDate == null) {
+            comment.setCommentDate(LocalDateTime.now());
+        }
         return commentMapper.insert(comment)>0;
     }
 
@@ -78,6 +86,52 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         BeanUtils.copyProperties(page, commentPageVo);
         commentPageVo.setPages(page.getPages());
         return commentPageVo;
+    }
+
+    @Override
+    public PageVo<Comment> pageQueryByCondition(CommentQueryVo queryVo) {
+        if (queryVo == null) {
+            return null;
+        }
+        QueryWrapper<Comment> queryWrapper = new QueryWrapper<>();
+        Integer id = queryVo.getId();
+        if (id != null) {
+            queryWrapper.eq("id", id);
+        }
+        Integer newsId = queryVo.getNewsId();
+        if (newsId != null) {
+            queryWrapper.eq("news_id", newsId);
+        }
+        String user = queryVo.getUser();
+        if (user != null) {
+            queryWrapper.like("user", user);
+        }
+        String commentData = queryVo.getCommentData();
+        if (commentData != null) {
+            queryWrapper.like("comment_data", commentData);
+        }
+        LocalDateTime startDate = queryVo.getStartDate();
+        if (startDate != null) {
+            queryWrapper.ge("creation_date", startDate);
+        }
+        LocalDateTime endDate = queryVo.getEndDate();
+        if (endDate != null) {
+            queryWrapper.le("creation_date", endDate);
+        }
+        Long current = queryVo.getCurrent();
+        if (current == null) {
+            current = PageConstant.CURRENT;
+        }
+        Long size = queryVo.getSize();
+        if (size == null) {
+            size = PageConstant.SIZE;
+        }
+        Page<Comment> page = new Page<>(current, size);
+        commentMapper.selectPage(page, queryWrapper);
+        PageVo<Comment> newPageVo = new PageVo<>();
+        BeanUtils.copyProperties(page, newPageVo);
+        newPageVo.setPages(page.getPages());
+        return newPageVo;
     }
 
 

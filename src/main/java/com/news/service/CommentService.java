@@ -2,7 +2,9 @@ package com.news.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.news.entity.Comment;
+import com.news.entity.vo.CommentQueryVo;
 import com.news.entity.vo.PageVo;
+import com.news.entity.vo.QueryVo;
 
 import java.util.List;
 
@@ -52,9 +54,16 @@ public interface CommentService extends IService<Comment> {
     boolean batchDelete(String deleteIds);
 
     /**
-     * 分页查询新闻的评论
+     * 根据新闻id分页查询新闻的评论
      * @param id 新闻id
      * @return PageVo<Comment>
      */
     PageVo<Comment> pageQueryByNewsId(Integer id);
+
+    /**
+     * 分页条件查询评论
+     * @param queryVo
+     * @return
+     */
+    PageVo<Comment> pageQueryByCondition(CommentQueryVo queryVo);
 }
