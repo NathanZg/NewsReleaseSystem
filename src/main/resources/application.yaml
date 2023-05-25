@@ -6,9 +6,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: w15353007288
-    url: jdbc:mysql://localhost:3306/nrs
+    username: root2
+    password: 123456
+    url: jdbc:mysql://localhost:3307/test
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       initial-size: 5
