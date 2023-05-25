@@ -25,5 +25,6 @@ public interface UserMapper extends BaseMapper<User> {
     public boolean setAdmin(String name,String role);
     @Update("update user set password=#{password} where name=#{name}")
     public boolean updateByPassword(String name,String password);
-
+    @Select("select id,name,role from user")
+    public List<User> selectAll();
 }
