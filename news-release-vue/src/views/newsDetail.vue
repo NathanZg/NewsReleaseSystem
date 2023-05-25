@@ -30,7 +30,7 @@
                                     <div class="comment-user-info">
                                         <div>
                                             <img class="comment-ic" src="https://api.biuioi.com/random-picture/index.php">
-                                            <span style="cursor: default"></span>
+                                            <span style="cursor: default">{{ comment.user }}</span>
                                         </div>
                                     </div>
                                     <div class="conment-detail">
