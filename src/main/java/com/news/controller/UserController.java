@@ -83,6 +83,7 @@ public class UserController {
             return ResponseUtils.fail("管理员设置失败");
         }
     }
+    //查看所有成员信息
     @PostMapping("/lookAllUser")
     public Response<List<User>> lookAllUser(){
         List<User> list=userService.selectAllUsers();

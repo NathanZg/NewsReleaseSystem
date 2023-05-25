@@ -16,7 +16,7 @@ public interface UserService extends IService<User> {
     // 注册用户
     boolean register(User user) ;
 
-    //查询所有用户
+    //查询所有用户信息
      List<User> selectAllUsers();
     // 通过用户名查询用户
     User selectByName(User user);
