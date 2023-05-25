@@ -13,43 +13,44 @@
                             <template #header>
                                 <div class="card-header">
                                     <span></span>
-                                    <h1>{{ newsDetail.news.title }}</h1>
-                                    <span>发布时间：{{ newsDetail.news.date }}</span>
+                                    <h1>{{ news.title }}</h1>
+                                    <span>发布时间：{{ news.date }}</span>
                                 </div>
                             </template>
                             <div class="imgDiv">
                                 <img src="https://api.ghser.com/random/fengjing.php" />
                             </div>
-                            <div class="text item" v-html="newsDetail.news.data">
+                            <div class="text item" v-html="news.data">
                             </div>
                         </el-card>
                         <div class="text item">
                             <div style="padding: 10px;">
-                                <span>pinglun</span>
-                                <div class="comment-info-root">
+                                <span>评论</span>
+                                <div v-for="comment in commentPageVo.records" class="comment-info-root">
                                     <div class="comment-user-info">
                                         <div>
                                             <img class="comment-ic" src="https://api.biuioi.com/random-picture/index.php">
-                                            <span style="cursor: default">昵称</span>
+                                            <span style="cursor: default"></span>
                                         </div>
                                     </div>
                                     <div class="conment-detail">
-                                        <span>评论</span>
+                                        <span>{{ comment.commentData }}</span>
                                     </div>
                                     <span class="comment-date">
-                                        发布日期
+                                        {{ comment.commentDate }}
                                     </span>
                                 </div>
                             </div>
                             <div class="Pagination" style="text-align: left;margin-top: 10px;">
-                                <el-pagination background layout="total, prev, pager, next" :total="10">
-                                </el-pagination>
+                                <el-pagination background layout="prev, pager, next" @prev-click="prevClick"
+                                    @next-click="nextClick" @current-change="currentChange" :total="commentPageVo.total"
+                                    :page-count="commentPageVo.pages"/>
                             </div>
                             <div class="repaly-root">
-                                <el-input type="textarea" :autosize="{ minRows: 1, maxRows: 20 }" placeholder="请输入内容"
-                                    style="width: 700px;">
+                                <el-input v-model="comment.commentData" type="textarea"
+                                    :autosize="{ minRows: 5, maxRows: 20 }" placeholder="请输入内容" style="width: 700px;">
                                 </el-input>
-                                <el-button type="primary" size="small" style="margin-left: 10px;">发布</el-button>
+                                <el-button @click="addComment" type="primary" size="small" style="margin-left: 10px;">发布</el-button>
                             </div>
                         </div>
                     </el-col>
@@ -65,26 +66,56 @@ import TopHeader from '@/components/header.vue'
 import { ref, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { getNewsDetailById } from '@/api/news'
+import { pageQueryCommentByCondition, insertComment } from '@/api/comment'
 const router = useRouter()
-const newsDetail = reactive({
-    news: {
-        id: null,
-        title: null,
-        data: null,
-        publisher: null,
-        date: null,
-        typeId: null
-    },
-    commentList: null
+const news = reactive({
+    id: null,
+    title: null,
+    data: null,
+    publisher: null,
+    date: null,
+    typeId: null
+})
+const commentPageVo = reactive({
+    records: [],
+    total: 1,
+    size: 5,
+    current: 1,
+    pages: 1
+})
+const commentQueryVo = reactive({
+    id: null,
+    user: null,
+    commentData: null,
+    newsId: router.currentRoute.value.params.id,
+    startDate: null,
+    endDate: null,
+    current: 1,
+    size: 5
+})
+const comment = reactive({
+    id: null,
+    user: 'test',
+    commentData: null,
+    commentDate: null,
+    newsId: router.currentRoute.value.params.id
 })
 function getNewsDetail() {
     var newsId = router.currentRoute.value.params.id;
     getNewsDetailById(newsId).then((res) => {
         var data = res.data.data
         if (res.data.code == 200) {
-            newsDetail.news = data.news
-            newsDetail.commentList = data.commentList
-            console.log(newsDetail)
+            news.id = data.news.id
+            news.title = data.news.title
+            news.typeId = data.news.typeId
+            news.publisher = data.news.publisher
+            news.data = data.news.data
+            news.date = data.news.date
+            commentPageVo.current = data.commentPageVo.current
+            commentPageVo.pages = data.commentPageVo.pages
+            commentPageVo.records = data.commentPageVo.records
+            commentPageVo.size = data.commentPageVo.size
+            commentPageVo.total = data.commentPageVo.total
         } else {
             ElNotification.error({
                 title: 'error',
@@ -92,6 +123,76 @@ function getNewsDetail() {
                 offset: 100
             })
         }
+    }).catch((error) => {
+        console.log(error)
+        ElNotification.error({
+            title: 'error',
+            message: error,
+            offset: 100
+        })
+    })
+}
+function getComment(commentQueryVo: object) {
+    pageQueryCommentByCondition(commentQueryVo).then((res) => {
+        var data = res.data.data
+        if (res.data.code == 200) {
+            commentPageVo.current = data.current
+            commentPageVo.pages = data.pages
+            commentPageVo.records = data.records
+            commentPageVo.size = data.size
+            commentPageVo.total = data.total
+        } else {
+            ElNotification.error({
+                title: 'error',
+                message: res.data.msg,
+                offset: 100
+            })
+        }
+    }).catch((error) => {
+        console.log(error)
+        ElNotification.error({
+            title: 'error',
+            message: error,
+            offset: 100
+        })
+    })
+}
+// 前一页
+function prevClick(value: any) {
+    commentQueryVo.current = value
+    getComment(commentQueryVo)
+}
+// 后一页
+function nextClick(value: any) {
+    commentQueryVo.current = value
+    getComment(commentQueryVo)
+}
+
+// 跳转页码
+function currentChange(value: any) {
+    commentQueryVo.current = value
+    getComment(commentQueryVo)
+}
+
+function addComment() {
+    insertComment(comment).then((res) => {
+        if (res.data.code == 200) {
+            comment.commentData = null
+            getComment(commentQueryVo)
+        } else {
+            ElNotification.error({
+                title: 'error',
+                message: error,
+                offset: 100
+            })
+        }
+    }).catch((error) => {
+        console.log(error)
+        ElNotification.error({
+            title: 'error',
+            message: error,
+            offset: 100
+        })
     })
 }
 onMounted(() => {
