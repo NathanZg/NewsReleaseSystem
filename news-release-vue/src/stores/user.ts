@@ -18,7 +18,12 @@ export const useUserStore = defineStore('counter', () => {
     function setRole(userRole: string) {
         role.value = userRole
     }
-    return { id, name, password, role, setId, setName, setPassword, setRole }
+    function reSet() {
+        id.value = 0
+        name.value = ''
+        password.value = ''
+    }
+    return { id, name, password, role, setId, setName, setPassword, setRole, reSet }
 }, {
     persist: true
 })

@@ -12,7 +12,7 @@
                         <el-card class="box-card">
                             <template #header>
                                 <div class="card-header">
-                                    <span></span>
+                                    <span>发布人：{{ news.publisher }}</span>
                                     <h1>{{ news.title }}</h1>
                                     <span>发布时间：{{ news.date }}</span>
                                 </div>
@@ -29,7 +29,7 @@
                                 <div v-for="comment in commentPageVo.records" class="comment-info-root">
                                     <div class="comment-user-info">
                                         <div>
-                                            <img class="comment-ic" src="https://api.biuioi.com/random-picture/index.php">
+                                            <img class="comment-ic" :src="'https://api.multiavatar.com/' + comment.user + '.png'">
                                             <span style="cursor: default">{{ comment.user }}</span>
                                         </div>
                                     </div>
@@ -63,11 +63,13 @@
 </template>
 <script lang="ts" setup>
 import TopHeader from '@/components/header.vue'
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted,onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
 import { getNewsDetailById } from '@/api/news'
 import { pageQueryCommentByCondition, insertComment } from '@/api/comment'
-import { ElNotification } from 'element-plus'
+import { ElNotification, ElMessage } from 'element-plus'
+import { useUserStore } from '@/stores/user'
+const userStore = useUserStore()
 const router = useRouter()
 const news = reactive({
     id: null,
@@ -94,9 +96,10 @@ const commentQueryVo = reactive({
     current: 1,
     size: 5
 })
+
 const comment = reactive({
     id: null,
-    user: 'test',
+    user: userStore.name,
     commentData: null,
     commentDate: null,
     newsId: router.currentRoute.value.params.id
@@ -196,6 +199,12 @@ function addComment() {
         })
     })
 }
+onBeforeMount(() => {
+    if(userStore.id == 0) {
+        ElMessage.info('请先注册/登陆！')
+        router.push('/login')
+    }
+})
 onMounted(() => {
     getNewsDetail()
 })

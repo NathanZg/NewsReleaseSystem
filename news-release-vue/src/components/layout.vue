@@ -24,9 +24,11 @@ import TopHeader from '@/components/header.vue';
 import NewsList from '@/components/newslist.vue';
 import TypeSideBar from '@/components/typesidebar.vue';
 import { pageQueryByCondition } from '@/api/news';
-import { ref, reactive, onMounted } from 'vue';
-import { ElNotification } from 'element-plus';
-const list = ref([])
+import { ref, reactive, onMounted, onBeforeMount } from 'vue';
+import { ElNotification, ElMessage } from 'element-plus';
+import { useUserStore } from '@/stores/user';
+import router from '@/router';
+const userStore = useUserStore()
 // 查询条件
 const queryVo = reactive({
     id: null,
@@ -96,6 +98,12 @@ function getNewsListByType(id: any) {
     }
     getNewsByCondition(queryVo)
 }
+onBeforeMount(() => {
+    if(userStore.id == 0) {
+        ElMessage.info('请先注册/登陆！')
+        router.push('login')
+    }
+})
 onMounted(() => {
     getNewsByCondition(queryVo)
 })
