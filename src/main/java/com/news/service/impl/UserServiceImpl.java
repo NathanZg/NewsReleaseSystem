@@ -1,9 +1,14 @@
 package com.news.service.impl;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.news.entity.NewsData;
 import com.news.entity.User;
 import com.news.mapper.UserMapper;
 import com.news.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -31,6 +36,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             userMapper.insert(user);
         return userMapper.selectByName(user.getName()) != null;
 
+    }
+
+    //查看所有用户信息
+    @Override
+    public List<User> selectAllUsers() {
+
+        return userMapper.selectAll();
     }
 
     @Override

@@ -5,6 +5,8 @@ import com.news.service.UserService;
 import com.news.utils.Response;
 import com.news.utils.ResponseUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -80,6 +82,16 @@ public class UserController {
             return ResponseUtils.success(user);
         }else {
             return ResponseUtils.fail("管理员设置失败");
+        }
+    }
+    //查看所有成员信息
+    @PostMapping("/lookAllUser")
+    public Response<List<User>> lookAllUser(){
+        List<User> list=userService.selectAllUsers();
+        if (!list.isEmpty()){
+            return ResponseUtils.success(list);
+        }else {
+            return ResponseUtils.fail("查询失败");
         }
     }
 }
