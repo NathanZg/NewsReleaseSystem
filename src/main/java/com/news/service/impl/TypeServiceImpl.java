@@ -35,6 +35,15 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements Ty
     }
 
     /**
+     * 根据ID查找类型
+     * @param id 类型ID
+     * @return type
+     */
+    @Override
+    public Type getOne(Integer id){
+        return typeMapper.selectById(id);
+    }
+    /**
      * 添加类型
      * @param type 类型
      * @return 添加成功/失败

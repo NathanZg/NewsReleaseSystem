@@ -4,15 +4,17 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.news.constants.PageConstant;
 import com.news.entity.NewsData;
+import com.news.entity.Type;
+import com.news.entity.vo.NewsType;
 import com.news.entity.vo.PageVo;
 import com.news.entity.vo.QueryVo;
 import com.news.mapper.NewsDataMapper;
 import com.news.service.NewsDataService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.news.service.TypeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.TabExpander;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +30,10 @@ import java.util.List;
 @Service
 public class NewsDataServiceImpl extends ServiceImpl<NewsDataMapper, NewsData> implements NewsDataService {
     private final NewsDataMapper newsDataMapper;
-
-    public NewsDataServiceImpl(NewsDataMapper newsDataMapper) {
+    private TypeService typeService;
+    public NewsDataServiceImpl(NewsDataMapper newsDataMapper, TypeService typeService) {
         this.newsDataMapper = newsDataMapper;
+        this.typeService = typeService;
     }
 
     /**
@@ -110,6 +113,7 @@ public class NewsDataServiceImpl extends ServiceImpl<NewsDataMapper, NewsData> i
         if (typeId != null) {
             queryWrapper.eq("type_id", typeId);
         }
+
         String title = queryVo.getTitle();
         if (title != null) {
             queryWrapper.like("title", title);
@@ -145,4 +149,22 @@ public class NewsDataServiceImpl extends ServiceImpl<NewsDataMapper, NewsData> i
         newPageVo.setPages(page.getPages());
         return newPageVo;
     }
+    @Override
+    public PageVo<NewsType> pageQueryByCondition01(QueryVo queryVo){
+        PageVo<NewsType> objectPageVo = new PageVo<>();
+        PageVo<NewsData> newsDataPageVo = pageQueryByCondition(queryVo);
+        BeanUtils.copyProperties(newsDataPageVo, objectPageVo);
+        List<NewsData> records = newsDataPageVo.getRecords();
+        ArrayList<NewsType> list = new ArrayList<>();
+        for(NewsData newsData:records){
+            Type one = typeService.getOne(newsData.getTypeId());
+            NewsType newsType = new NewsType();
+            BeanUtils.copyProperties(newsData, newsType);
+            newsType.setType(one.getType());
+            list.add(newsType);
+        }
+        objectPageVo.setRecords(list);
+        return objectPageVo;
+    }
+
 }

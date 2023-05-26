@@ -3,6 +3,7 @@ package com.news.controller;
 import com.news.entity.Comment;
 import com.news.entity.NewsData;
 import com.news.entity.vo.NewsDetail;
+import com.news.entity.vo.NewsType;
 import com.news.entity.vo.PageVo;
 import com.news.entity.vo.QueryVo;
 import com.news.service.CommentService;
@@ -76,6 +77,18 @@ public class NewsDataController {
             return ResponseUtils.fail("pageQueryByCondition fail!!!");
         }
     }
+    @PostMapping("/pageQueryByCondition01")
+    public Response<PageVo<NewsType>> pageQueryByCondition01(@RequestBody QueryVo queryVo){
+        PageVo<NewsType> newsTypePageVo = newsDataService.pageQueryByCondition01(queryVo);
+        boolean flag= newsTypePageVo !=null;
+        if(flag){
+            return ResponseUtils.success(newsTypePageVo);
+        }
+        else {
+            return ResponseUtils.fail("pageQueryByCondition01 fail!!!");
+        }
+    }
+
 
     @GetMapping("/newsDetail/{id}")
     public Response<NewsDetail> getNewsDetailById(@PathVariable Integer id){

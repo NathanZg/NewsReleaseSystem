@@ -2,6 +2,7 @@ package com.news.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.news.entity.NewsData;
+import com.news.entity.vo.NewsType;
 import com.news.entity.vo.PageVo;
 import com.news.entity.vo.QueryVo;
 
@@ -56,4 +57,12 @@ public interface NewsDataService extends IService<NewsData> {
      * @return PageVo 前端页面封装
      */
     PageVo<NewsData> pageQueryByCondition(QueryVo queryVo);
+
+    /**
+     * 分页查询所有新闻详情
+     * @param queryVo 查询条件({null})
+     * @return PageVo 前端页面封装
+     */
+    PageVo<NewsType> pageQueryByCondition01(QueryVo queryVo);
+
 }

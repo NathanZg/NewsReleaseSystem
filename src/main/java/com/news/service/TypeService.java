@@ -18,6 +18,12 @@ public interface TypeService extends IService<Type> {
     List<Type> getAll();
 
     /**
+     * 根据ID查找类型
+     * @param id 类型ID
+     * @return type
+     */
+    Type getOne(Integer id);
+    /**
      * 添加类型
      * @param type 类型
      * @return 添加成功/失败
