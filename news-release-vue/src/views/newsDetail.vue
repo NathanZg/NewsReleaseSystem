@@ -67,6 +67,7 @@ import { ref, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { getNewsDetailById } from '@/api/news'
 import { pageQueryCommentByCondition, insertComment } from '@/api/comment'
+import { ElNotification } from 'element-plus'
 const router = useRouter()
 const news = reactive({
     id: null,
@@ -77,7 +78,7 @@ const news = reactive({
     typeId: null
 })
 const commentPageVo = reactive({
-    records: [],
+    records: ref<any>([]),
     total: 1,
     size: 5,
     current: 1,
@@ -182,7 +183,7 @@ function addComment() {
         } else {
             ElNotification.error({
                 title: 'error',
-                message: error,
+                message: res.data.msg,
                 offset: 100
             })
         }

@@ -1,4 +1,5 @@
 package com.news.controller;
+import com.news.constants.ResponseCode;
 import com.news.entity.User;
 import com.news.service.UserService;
 import com.news.utils.Response;
@@ -25,9 +26,9 @@ public class UserController {
      */
     @PostMapping("/login")
     public Response<User> login(@RequestBody User user) {
-        User user1= userService.selectByName(user);
+        User user1 = userService.selectByName(user);
         if (Objects.equals(user1.getPassword(), user.getPassword())){
-            return ResponseUtils.success(user1);
+            return ResponseUtils.defineSuccess(ResponseCode.SUCCESS, "登陆成功！", user1);
         }else {
             return ResponseUtils.fail("登陆失败");
         }
@@ -44,9 +45,9 @@ public class UserController {
 
         // 根据注册结果返回相应的响应码
         if (success) {
-            return  ResponseUtils.success("注册成功");
+            return  ResponseUtils.success("注册成功!");
         } else {
-            return  ResponseUtils.fail("注册失败");
+            return  ResponseUtils.fail("注册失败!");
         }
     }
 

@@ -25,6 +25,7 @@ import NewsList from '@/components/newslist.vue';
 import TypeSideBar from '@/components/typesidebar.vue';
 import { pageQueryByCondition } from '@/api/news';
 import { ref, reactive, onMounted } from 'vue';
+import { ElNotification } from 'element-plus';
 const list = ref([])
 // 查询条件
 const queryVo = reactive({
