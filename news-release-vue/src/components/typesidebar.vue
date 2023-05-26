@@ -9,7 +9,7 @@
         </el-menu-item>
         <el-menu-item v-for="t in types" :index="String(t.id)">
           <el-icon><icon-menu /></el-icon>
-          <span>{{ t.type}}</span>
+          <span>{{ t.type }}</span>
         </el-menu-item>
       </el-menu>
     </el-col>
@@ -18,12 +18,9 @@
   
 <script lang="ts" setup>
 import { typeSelect } from '@/api/type';
-import {onMounted, ref} from 'vue'
+import { onMounted, ref } from 'vue'
 import {
-  Document,
   Menu as IconMenu,
-  Location,
-  Setting,
 } from '@element-plus/icons-vue'
 const prop = defineProps({
   typeList: {
@@ -38,13 +35,13 @@ const emit = defineEmits(
 );
 const types = ref<any>([])
 function getTypes() {
-  typeSelect().then((res)=> {
+  typeSelect().then((res) => {
     types.value = res.data.data
   })
 }
 function handleSelect(key: string, keyPath: string[]) {
   emit('clickType', key)
-} 
+}
 onMounted(() => {
   getTypes()
 })
