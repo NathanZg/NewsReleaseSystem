@@ -58,4 +58,5 @@ public class TypeController {
             return ResponseUtils.fail("Failed to Delete Type!");
         }
     }
+
 }

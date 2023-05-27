@@ -109,11 +109,19 @@ public class NewsDataServiceImpl extends ServiceImpl<NewsDataMapper, NewsData> i
         if (id != null) {
             queryWrapper.eq("id", id);
         }
-        Integer typeId = queryVo.getTypeId();
-        if (typeId != null) {
-            queryWrapper.eq("type_id", typeId);
+        String type = queryVo.getType();
+        if(type!=null){
+            Integer idByType = typeService.getIdByType(type);
+            if (idByType != null) {
+                queryWrapper.eq("type_id",idByType);
+            }
         }
-
+        else{
+            Integer typeId = queryVo.getTypeId();
+            if (typeId != null) {
+                queryWrapper.eq("type_id", typeId);
+            }
+        }
         String title = queryVo.getTitle();
         if (title != null) {
             queryWrapper.like("title", title);

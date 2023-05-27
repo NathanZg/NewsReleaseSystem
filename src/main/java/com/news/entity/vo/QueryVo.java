@@ -23,7 +23,10 @@ public class QueryVo {
      * 类型id
      */
     private Integer typeId;
-
+    /**
+     *类型
+     */
+    private String type;
     /**
      * 新闻标题
      */

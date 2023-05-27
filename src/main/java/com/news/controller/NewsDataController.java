@@ -8,6 +8,7 @@ import com.news.entity.vo.PageVo;
 import com.news.entity.vo.QueryVo;
 import com.news.service.CommentService;
 import com.news.service.NewsDataService;
+import com.news.service.TypeService;
 import com.news.utils.Response;
 import com.news.utils.ResponseUtils;
 import org.springframework.web.bind.annotation.*;
@@ -27,10 +28,12 @@ import java.util.List;
 public class NewsDataController {
     private NewsDataService newsDataService;
     private CommentService commentService;
+    private TypeService typeService;
 
-    public NewsDataController(NewsDataService newsDataService, CommentService commentService) {
+    public NewsDataController(NewsDataService newsDataService, CommentService commentService, TypeService typeService) {
         this.newsDataService = newsDataService;
         this.commentService = commentService;
+        this.typeService = typeService;
     }
 
     @PostMapping("/newsSelect")
@@ -88,7 +91,11 @@ public class NewsDataController {
             return ResponseUtils.fail("pageQueryByCondition01 fail!!!");
         }
     }
-
+//    public Response<PageVo<NewsData>> pageQueryByType(@RequestBody String type) {
+//        Integer idByType = typeService.getIdByType(type);
+//
+//        Response<PageVo<NewsData>> pageVoResponse = pageQueryByCondition(idByType);
+//    }
 
     @GetMapping("/newsDetail/{id}")
     public Response<NewsDetail> getNewsDetailById(@PathVariable Integer id){

@@ -23,6 +23,13 @@ public interface TypeService extends IService<Type> {
      * @return type
      */
     Type getOne(Integer id);
+
+    /**
+     * 根据类型查找id
+     * @param type 类型名
+     * @return id
+     */
+    Integer getIdByType(String type);
     /**
      * 添加类型
      * @param type 类型

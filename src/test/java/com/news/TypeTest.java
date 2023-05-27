@@ -3,6 +3,7 @@ package com.news;
 import com.news.controller.TypeController;
 import com.news.entity.Type;
 import com.news.mapper.TypeMapper;
+import com.news.service.TypeService;
 import com.news.utils.Response;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ public class TypeTest {
     private TypeMapper typeMapper;
     @Autowired
     private TypeController typeController;
+    @Autowired
+    private TypeService typeService;
     @Test
     void getAll(){
         List<Type> types = typeMapper.selectList(null);
@@ -50,5 +53,11 @@ public class TypeTest {
         String s="1";
         Response<Object> objectResponse = typeController.typeDelete(s);
         System.out.println(objectResponse);
+    }
+    @Test
+    void demo(){
+        String type = "的撒旦";
+        Integer idByType = typeService.getIdByType(type);
+        System.out.println(idByType);
     }
 }

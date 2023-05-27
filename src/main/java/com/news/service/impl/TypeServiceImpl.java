@@ -1,5 +1,8 @@
 package com.news.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
+import com.news.entity.NewsData;
 import com.news.entity.Type;
 import com.news.mapper.TypeMapper;
 import com.news.service.TypeService;
@@ -42,6 +45,13 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements Ty
     @Override
     public Type getOne(Integer id){
         return typeMapper.selectById(id);
+    }
+    @Override
+    public Integer getIdByType(String type){
+        QueryWrapper<Type> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("type",type);
+        Type type1 = typeMapper.selectOne(queryWrapper);
+        return type1.getId();
     }
     /**
      * 添加类型
