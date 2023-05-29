@@ -46,22 +46,6 @@ public class CommentController {
     }
 
     /**
-     * 获取新闻对应所有评论
-     * @return Response<List<Comment>>
-     */
-    @GetMapping
-    public Response<List<Comment>> getAll(){
-        List<Comment> commentList=commentService.getAll();
-        boolean flag= commentList != null;
-        if(flag) {
-            return ResponseUtils.success(commentList);
-        }
-        else {
-            return ResponseUtils.fail("getAll fail!!!");
-        }
-    }
-
-    /**
      * 批量删除
      * @param ids 以逗号分割的id序列
      * @return Response
