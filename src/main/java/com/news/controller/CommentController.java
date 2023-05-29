@@ -62,38 +62,6 @@ public class CommentController {
     }
 
     /**
-     * 删除评论
-     * @param id 评论id
-     * @return Response
-     */
-    @DeleteMapping("{id}")
-    public Response delete(@PathVariable Integer id){
-        boolean flag=commentService.delete(id);
-        if(flag) {
-            return ResponseUtils.success("delete success!!!");
-        }
-        else {
-            return ResponseUtils.fail("delete fail!!!");
-        }
-    }
-
-    /**
-     * 修改评论
-     * @param comment 评论实体类
-     * @return Response
-     */
-    @PutMapping
-    public Response update(@RequestBody Comment comment){
-        boolean flag=commentService.updateId(comment);
-        if(flag) {
-            return ResponseUtils.success(comment);
-        }
-        else {
-            return ResponseUtils.fail("update fail!!!");
-        }
-    }
-
-    /**
      * 批量删除
      * @param ids 以逗号分割的id序列
      * @return Response
@@ -109,6 +77,11 @@ public class CommentController {
         }
     }
 
+    /**
+     * 分页查询
+     * @param queryVo
+     * @return
+     */
     @PostMapping("/pageQueryByCondition")
     public Response<PageVo<Comment>> pageQueryByCondition(@RequestBody CommentQueryVo queryVo){
         PageVo<Comment> newsDataPageVo = commentService.pageQueryByCondition(queryVo);

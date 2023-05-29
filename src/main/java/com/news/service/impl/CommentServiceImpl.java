@@ -35,11 +35,6 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         this.commentMapper = commentMapper;
     }
 
-    public List<Comment> getAll(){
-        List<Comment> commentList=commentMapper.selectList(null);
-        return commentList;
-    }
-
     @Override
     public boolean insert(Comment comment) {
         LocalDateTime commentDate = comment.getCommentDate();
@@ -47,16 +42,6 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
             comment.setCommentDate(LocalDateTime.now());
         }
         return commentMapper.insert(comment)>0;
-    }
-
-    @Override
-    public boolean updateId(Comment comment) {
-        return commentMapper.updateById(comment)>0;
-    }
-
-    @Override
-    public boolean delete(Integer id) {
-        return commentMapper.deleteById(id)>0;
     }
 
     @Override
