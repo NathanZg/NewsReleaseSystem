@@ -1,6 +1,6 @@
 <template>
   <el-menu class="el-menu-demo" mode="horizontal" :ellipsis="false">
-    <el-menu-item><a href="/" style="text-decoration:none;">新闻首页</a></el-menu-item>
+    <el-menu-item><a href="/console" style="text-decoration:none;">科大新闻后台管理系统</a></el-menu-item>
     <div class="flex-grow" />
     <el-menu-item>
       <el-avatar :src="'https://api.multiavatar.com/' + userStore.name + '.png'" />

@@ -39,7 +39,6 @@ const submit = (formEl: FormInstance | undefined) => {
     }
     formEl.validate(async (validate: boolean) => {
         if (validate) {
-            console.log("开始做登录的逻辑");
             userLogin(loginParam).then((res) => {
                 var user = res.data.data
                 if (res.data.code == 200) {

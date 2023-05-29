@@ -20,11 +20,10 @@ import { type RegisterReq } from '@/interface/user';
 import { reactive, ref} from 'vue'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus';
 import { userRegister } from '@/api/user';
-import { useRouter } from 'vue-router';
 const registerParam: RegisterReq = reactive({
     name: "",
     password: "",
-    role: "1"
+    role: "2"
 })
 const registerRef = ref<FormInstance>()
 const registerRules: FormRules = reactive({
@@ -38,7 +37,6 @@ const submit = (formEl: FormInstance | undefined) => {
     }
     formEl.validate(async (validate: boolean) => {
         if (validate) {
-            console.log("开始做注册的逻辑");
             userRegister(registerParam).then((res) => {
                 if(res.data.code == 200) {
                     ElMessage.success(res.data.msg)

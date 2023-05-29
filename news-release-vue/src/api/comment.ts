@@ -14,3 +14,14 @@ export function insertComment(comment: object) {
         data: comment
     })
 }
+
+export function commentDelete(ids: string) {
+    return httpService({
+        url: '/comment/batchDelete',
+        method: 'delete',
+        data: ids,
+        headers: {
+            'Content-Type': 'text/plain'
+        }
+    })
+}

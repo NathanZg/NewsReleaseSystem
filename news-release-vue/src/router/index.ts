@@ -17,7 +17,34 @@ const router = createRouter({
       path: '/detail/:id',
       name: 'detail',
       component: () => import('@/views/newsDetail.vue')
-    }
+    },
+    {
+      path: '/console',
+      name: 'console',
+      component: () => import('@/components/console.vue'),
+      children: [
+        {
+          path: '/console/newsManager',
+          name: 'newsManager',
+          component: () => import('@/components/newsManager.vue'),
+        },
+        {
+          path: '/console/typeManager',
+          name: 'typeManager',
+          component: () => import('@/components/typeManager.vue'),
+        },
+        {
+          path: '/console/userManager',
+          name: 'userManager',
+          component: () => import('@/components/userManager.vue'),
+        },
+        {
+          path: '/console/commentManager/:id',
+          name: 'commentManager',
+          component: () => import('@/components/commentManager.vue'),
+        }
+      ]
+    },
   ]
 })
 

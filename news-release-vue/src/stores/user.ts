@@ -2,7 +2,7 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('counter', () => {
-    const id = ref(0)
+    const id = ref(-1)
     const name = ref('')
     const password = ref('')
     const role = ref('')
@@ -19,7 +19,7 @@ export const useUserStore = defineStore('counter', () => {
         role.value = userRole
     }
     function reSet() {
-        id.value = 0
+        id.value = -1
         name.value = ''
         password.value = ''
     }
