@@ -136,11 +136,11 @@ public class NewsDataServiceImpl extends ServiceImpl<NewsDataMapper, NewsData> i
         }
         LocalDateTime startDate = queryVo.getStartDate();
         if (startDate != null) {
-            queryWrapper.ge("creation_date", startDate);
+            queryWrapper.ge("data", startDate);
         }
         LocalDateTime endDate = queryVo.getEndDate();
         if (endDate != null) {
-            queryWrapper.le("creation_date", endDate);
+            queryWrapper.le("data", endDate);
         }
         Long current = queryVo.getCurrent();
         if (current == null) {
