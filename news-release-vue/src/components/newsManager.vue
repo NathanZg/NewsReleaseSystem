@@ -124,7 +124,7 @@
                 </el-form-item>
                 <el-form-item label="类型" :label-width="formLabelWidth">
                     <el-select v-model="editForm.typeId" placeholder="请选择类型">
-                        <el-option v-for="data in typeData.data" :value="data.id" :label="data.type" />
+                        <el-option v-for="data in typeData.data" :key="data.id" :value="data.id" :label="data.type" />
                     </el-select>
                 </el-form-item>
                 <el-form-item label="日期" :label-width="formLabelWidth">
@@ -356,7 +356,7 @@ const editClick = (val: any) => {
     editNew.value = true;
     editForm.title = val.title;
     editForm.data = val.data;
-    editForm.typeId = val.typeId + '';
+    editForm.typeId = val.typeId;
     editForm.publisher = val.publisher;
     editForm.date = val.date;
     console.log(editForm)
