@@ -53,6 +53,14 @@ export function pageQueryByCondition(queryVo: object) {
     })
 }
 
+export function pageQueryByCondition2(queryVo: object) {
+    return httpService({
+        url: '/pageQueryByCondition01',
+        method: 'post',
+        data: queryVo,
+    })
+}
+
 export function getNewsDetailById(id: any) {
     return httpService({
         url: `/newsDetail/${id}`,

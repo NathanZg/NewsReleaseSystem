@@ -17,7 +17,7 @@
         <el-table-column prop="name" label="用户名" width="180" />
         <el-table-column prop="role" label="权限" width="180">
             <template #default="{ row }">
-                <span v-if="row.role == 0">root</span>
+                <span v-if="row.role == 0">超级管理员</span>
                 <span v-else-if="row.role == 1">管理员</span>
                 <span v-else-if="row.role == 2">用户</span>
             </template>
@@ -208,7 +208,7 @@ const handleClose = (done: any) => {
     if (loading.value) {
         return
     }
-    ElMessageBox.confirm('Do you want to submit?')
+    ElMessageBox.confirm('是否提交？')
         .then(() => {
             loading.value = true
             timer = setTimeout(() => {

@@ -18,7 +18,7 @@
                                 </div>
                             </template>
                             <div class="imgDiv">
-                                <img src="https://api.ghser.com/random/fengjing.php" />
+                                <img src="https://api.biuioi.com/random-picture/index.php" />
                             </div>
                             <div class="text item" v-html="news.data">
                             </div>

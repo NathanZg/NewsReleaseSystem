@@ -13,7 +13,7 @@
             </el-form-item>
             <el-form-item label="类型">
                 <el-select v-model="formInline.type" placeholder="请选择类型">
-                    <el-option v-for="data in typeData.data" :value="data.type" :label="data.type" />
+                    <el-option v-for="data in typeData.data" :key="data.id" :value="data.id" :label="data.type" />
                 </el-select>
             </el-form-item>
             <el-form-item label="起始日期">
@@ -34,7 +34,7 @@
                 </el-popconfirm>
 
                 <!-- 新增操作 -->
-                <el-button type="primary" @click="addNews = true" style="margin-left: 40px;">
+                <el-button type="primary" @click="add" style="margin-left: 40px;">
                     +&ensp;发布新闻
                 </el-button>
             </div>
@@ -65,7 +65,6 @@
                 <el-button link type="primary" size="small" @click="handleClick(scope.row)">详情</el-button>
                 <el-button link type="primary" size="small" @click="editClick(scope.row)">修改</el-button>
                 <el-button link type="primary" size="small" @click="commentMan(scope.row.id)">评论管理</el-button>
-
             </template>
         </el-table-column>
     </el-table>
@@ -91,13 +90,9 @@
                     <my-editor :data="addForm" />
                     <!-- <el-input v-model="form.data" autocomplete="off" /> -->
                 </el-form-item>
-
-                <el-form-item label="编辑" :label-width="formLabelWidth">
-                    <el-input v-model="addForm.publisher" autocomplete="off" style="width:fit-content;" />
-                </el-form-item>
                 <el-form-item label="类型" :label-width="formLabelWidth">
                     <el-select v-model="addForm.typeId" placeholder="请选择类型">
-                        <el-option v-for="data in typeData.data" :key="data.id" :value="data.type" />
+                        <el-option v-for="data in typeData.data" :key="data.id" :value="data.id" :label="data.type"/>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="日期" :label-width="formLabelWidth">
@@ -135,7 +130,6 @@
                 <el-form-item label="日期" :label-width="formLabelWidth">
                     <el-date-picker v-model="editForm.date" type="date" placeholder="选择日期" size="default" />
                 </el-form-item>
-
             </el-form>
             <div class="demo-drawer__footer">
                 <el-button @click="cancelForm">Cancel</el-button>
@@ -152,24 +146,36 @@
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
 import { ElDrawer, ElMessageBox, ElMessage } from 'element-plus'
-import { pageQueryByCondition, newsDelete, newsUpdate, newsAdd } from '@/api/news'
+import { pageQueryByCondition2, newsDelete, newsUpdate, newsAdd } from '@/api/news'
 import myEditor from '@/components/myEditor.vue'
 import { useRouter } from 'vue-router';
 import { typeSelect } from '@/api/type';
+import { useUserStore } from '@/stores/user';
+const userStore = useUserStore()
 const router = useRouter()
 onMounted(() => {
     pageSelect({});
     getType();
     // router.push('')
 })
+
+function add() {
+    addForm.title = null
+    addForm.typeId = null
+    addForm.date = null
+    addForm.data = null
+    addNews.value = true
+}
+
 //发送查询
 function pageSelect(queryVo: any) {
-    pageQueryByCondition(queryVo).then((res) => {
+    pageQueryByCondition2(queryVo).then((res) => {
         var data = res.data.data
         if (res.data.code == 200) {
             newsPageVo.current = data.current
             newsPageVo.pages = data.pages
             newsPageVo.records = data.records
+            console.log(newsPageVo.records)
             newsPageVo.size = data.size
             newsPageVo.total = data.total
             // news.id = data.records.id
@@ -307,7 +313,7 @@ const resetForm = () => {
     formInline.endDate = null;
     formInline.id = null;
     formInline.title = null;
-    formInline.publisher = null;
+    formInline.publisher = '';
     formInline.type = null;
     pageSelect({});
 }
@@ -360,7 +366,7 @@ const editClick = (val: any) => {
 const formInline = reactive({
     id: null,
     title: null,
-    publisher: null,
+    publisher: '',
     type: null,
     startDate: null,
     endDate:null
@@ -369,7 +375,7 @@ const formInline = reactive({
 const addForm = reactive({
     title: null,
     data: null,
-    publisher: null,
+    publisher: userStore.name,
     date: null,
     typeId: null
 })
@@ -415,7 +421,7 @@ const handleClose = (done: any) => {
     if (loading.value) {
         return
     }
-    ElMessageBox.confirm('Do you want to submit?')
+    ElMessageBox.confirm('是否提交？')
         .then(() => {
             loading.value = true
             timer = setTimeout(() => {

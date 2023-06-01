@@ -171,7 +171,7 @@ const handleClose = (done: any) => {
     if (loading.value) {
         return
     }
-    ElMessageBox.confirm('Do you want to submit?')
+    ElMessageBox.confirm('是否提交？')
         .then(() => {
             loading.value = true
             timer = setTimeout(() => {

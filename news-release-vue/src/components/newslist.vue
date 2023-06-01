@@ -19,9 +19,9 @@
           <span>{{ news.type }}</span>
         </p>
         <!--文章简介-->
-        <p class="note">
+        <!-- <p class="note">
           {{ news.data }}
-        </p>
+        </p> -->
       </article>
     </div>
   </div>
@@ -35,13 +35,7 @@ const prop = defineProps({
   }
 })
 function getImgSrc(id: number) {
-  if(id % 3 == 0) {
-    return "https://api.ghser.com/random/fengjing.php"
-  } else if(id % 3 == 1){
-    return "https://api.vvhan.com/api/view"
-  } else {
-    return "https://api.biuioi.com/random-picture/index.php"
-  }
+  return "https://api.biuioi.com/random-picture/index.php"
 }
 </script>
 <style scope lang="scss">

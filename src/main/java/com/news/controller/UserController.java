@@ -28,11 +28,11 @@ public class UserController {
      */
     @PostMapping("/login")
     public Response<User> login(@RequestBody User user) {
-        User user1 = userService.selectByName(user);
-        if (Objects.equals(user1.getPassword(), user.getPassword())){
-            return ResponseUtils.defineSuccess(ResponseCode.SUCCESS, "登陆成功！", user1);
+        User loginUser = userService.selectByName(user);
+        if (loginUser != null && Objects.equals(loginUser.getPassword(), user.getPassword())){
+            return ResponseUtils.defineSuccess(ResponseCode.SUCCESS, "登陆成功！", loginUser);
         }else {
-            return ResponseUtils.fail("登陆失败");
+            return ResponseUtils.fail("账号或密码错误！");
         }
     }
 
