@@ -1,6 +1,6 @@
 <template>
     <div class="control-add">
-        <el-popconfirm title="确定删除所选类型信息吗？" @confirm="toggleSelection">
+        <el-popconfirm title="确定删除所选类型信息及该类型下的所有新闻吗？" @confirm="toggleSelection">
             <template #reference>
                 <el-button type="primary" slot="reference">
                     -&ensp;删除类型

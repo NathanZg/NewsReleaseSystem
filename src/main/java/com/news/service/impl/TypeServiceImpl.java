@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.news.entity.NewsData;
 import com.news.entity.Type;
+import com.news.mapper.NewsDataMapper;
 import com.news.mapper.TypeMapper;
+import com.news.service.NewsDataService;
 import com.news.service.TypeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -24,8 +26,11 @@ import java.util.List;
 public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements TypeService {
     private TypeMapper typeMapper;
 
-    public TypeServiceImpl(TypeMapper typeMapper) {
+    private NewsDataMapper newsDataMapper;
+
+    public TypeServiceImpl(TypeMapper typeMapper, NewsDataMapper newsDataMapper) {
         this.typeMapper = typeMapper;
+        this.newsDataMapper = newsDataMapper;
     }
 
     /**
@@ -71,12 +76,14 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements Ty
     @Override
     public boolean deleteType(String id){
         String[] split = id.split(",");
-        ArrayList<Integer> ID = new ArrayList<>();
+        ArrayList<Integer> typeIds = new ArrayList<>();
         for(String s:split){
-            ID.add(Integer.parseInt(s));
+            int typeId = Integer.parseInt(s);
+            QueryWrapper<NewsData> wrapper = new QueryWrapper<>();
+            wrapper.eq("type_id", typeId);
+            newsDataMapper.delete(wrapper);
+            typeIds.add(typeId);
         }
-        return typeMapper.deleteBatchIds(ID)>=1;
+        return typeMapper.deleteBatchIds(typeIds)>=1;
     }
-
-
 }
