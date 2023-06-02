@@ -1,11 +1,5 @@
 <template>
     <div class="control-add">
-        <el-popconfirm title="确定删除所选用户信息吗？" @confirm="toggleSelection">
-            <template #reference>
-
-            </template>
-        </el-popconfirm>
-
         <!-- 新增操作 -->
         <el-button type="primary" @click="addUser = true">
             +&ensp;新增用户
@@ -23,10 +17,10 @@
         </el-table-column>
         <el-table-column fixed="right" label="Operations" width="400">
             <template #default="scope">
-                <el-button link type="primary" size="small" v-if="scope.row.role == 2 && userStore.role == '0'"  @click="beManager(scope.row)">设置为管理员</el-button>
-                <el-popconfirm title="确定删除所选用户信息吗？" @confirm="deleteClick(scope.row)">
+                <el-button link type="primary" size="small"   @click="beManager(scope.row)" v-if="scope.row.role == '2' && userStore.role == '0'">设置为管理员</el-button>
+                <el-popconfirm title="确定删除所选用户信息吗？" @confirm="deleteClick(scope.row)" v-if="scope.row.role >= userStore.role">
                     <template #reference>
-                        <el-button link type="primary" size="small" v-if="scope.row.role > userStore.role">删除</el-button>
+                        <el-button link type="primary" size="small">删除</el-button>
                     </template>
                 </el-popconfirm>
             </template>
@@ -139,7 +133,6 @@ function setSubmit(user: any) {
         if (res.data.code == 200) {
             ElMessage('更改成功！');
             addShow({});
-            userStore.setRole('1')
         } else {
             ElNotification.error({
                 title: 'error',
