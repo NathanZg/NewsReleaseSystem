@@ -13,21 +13,20 @@
     </div>
     <!-- 表格 -->
     <el-table :data="userData" style="width: 100%">
-        <el-table-column prop="id" label="编号" width="180" />
-        <el-table-column prop="name" label="用户名" width="180" />
-        <el-table-column prop="role" label="权限" width="180">
+        <el-table-column prop="name" label="用户名" width="400" />
+        <el-table-column prop="role" label="权限" width="300">
             <template #default="{ row }">
                 <span v-if="row.role == 0">超级管理员</span>
                 <span v-else-if="row.role == 1">管理员</span>
                 <span v-else-if="row.role == 2">用户</span>
             </template>
         </el-table-column>
-        <el-table-column fixed="right" label="Operations" width="120">
+        <el-table-column fixed="right" label="Operations" width="400">
             <template #default="scope">
-                <el-button link type="primary" size="small" @click="beManager(scope.row)">设置为管理员</el-button>
+                <el-button link type="primary" size="small" v-if="scope.row.role == 2 && userStore.role == '0'"  @click="beManager(scope.row)">设置为管理员</el-button>
                 <el-popconfirm title="确定删除所选用户信息吗？" @confirm="deleteClick(scope.row)">
                     <template #reference>
-                        <el-button link type="primary" size="small">删除</el-button>
+                        <el-button link type="primary" size="small" v-if="scope.row.role > userStore.role">删除</el-button>
                     </template>
                 </el-popconfirm>
             </template>
@@ -38,9 +37,6 @@
         class="demo-drawer">
         <div class="demo-drawer__content">
             <el-form :model="addForm">
-                <el-form-item label="标签" :label-width="formLabelWidth">
-                    <el-input v-model="addForm.id" autocomplete="off" style="width:fit-content;" />
-                </el-form-item>
                 <el-form-item label="用户名" :label-width="formLabelWidth">
                     <el-input v-model="addForm.name" autocomplete="off" style="width:fit-content;" />
                 </el-form-item>
@@ -64,7 +60,6 @@ import { ElDrawer, ElMessageBox, ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router';
 import { userSelect, userAdd, userDelete,configManager } from '@/api/user';
 import { useUserStore } from '@/stores/user';
-import useStore from 'element-plus/es/components/table/src/store';
 const userStore = useUserStore()
 onMounted(() => {
     addShow({});

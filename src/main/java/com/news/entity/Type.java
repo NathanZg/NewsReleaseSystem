@@ -2,6 +2,8 @@ package com.news.entity;
 
 import java.io.Serializable;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
 
 /**
@@ -22,6 +24,7 @@ public class Type implements Serializable {
     /**
      * 类型id
      */
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**

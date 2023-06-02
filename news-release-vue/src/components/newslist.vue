@@ -88,6 +88,8 @@ $font1: 12px;
       a {
         margin-left: 4px;
         font-size: 20px;
+        text-decoration:none;
+        color: #2b2b2b;
       }
     }
 

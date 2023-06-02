@@ -15,18 +15,14 @@
     </div>
     <!-- 表格 -->
     <el-table :data="typeData" style="width: 100%" @selection-change="handleSelectionChange">
-        <el-table-column type="selection" width="55" />
-        <el-table-column prop="id" label="编号" width="180" />
-        <el-table-column prop="type" label="类型" width="180" />
+        <el-table-column type="selection" width="100" />
+        <el-table-column prop="type" label="类型" width="200" />
     </el-table>
 
     <el-dialog v-model="addType" align-center title="新增类型" :with-header="false" :before-close="handleClose"
         class="demo-drawer">
         <div class="demo-drawer__content">
             <el-form :model="addForm">
-                <el-form-item label="标签" :label-width="formLabelWidth">
-                    <el-input v-model="addForm.id" autocomplete="off" style="width:fit-content;" />
-                </el-form-item>
                 <el-form-item label="类型" :label-width="formLabelWidth">
                     <el-input v-model="addForm.type" autocomplete="off" style="width:fit-content;" />
                 </el-form-item>
