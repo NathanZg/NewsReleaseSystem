@@ -14,6 +14,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.news.service.TypeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -41,6 +43,7 @@ public class NewsDataServiceImpl extends ServiceImpl<NewsDataMapper, NewsData> i
      * @return list<NewsData>集合
      */
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public List<NewsData> getAllData(){
         return newsDataMapper.selectList(null);
     }
@@ -51,6 +54,7 @@ public class NewsDataServiceImpl extends ServiceImpl<NewsDataMapper, NewsData> i
      * @return NewData对象
      */
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public NewsData getData(Integer id){
         return newsDataMapper.selectById(id);
     }
@@ -61,6 +65,7 @@ public class NewsDataServiceImpl extends ServiceImpl<NewsDataMapper, NewsData> i
      * @return 添加成功(true)/添加失败(false)
      */
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public boolean insertData(NewsData newsData){
         return newsDataMapper.insert(newsData)>=1;
     }
@@ -71,9 +76,9 @@ public class NewsDataServiceImpl extends ServiceImpl<NewsDataMapper, NewsData> i
      * @return 修改成功(true)/修改失败(false)
      */
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public boolean updateData(NewsData newsData){
         return newsDataMapper.updateById(newsData)>=1;
-
     }
 
     /**
@@ -82,6 +87,7 @@ public class NewsDataServiceImpl extends ServiceImpl<NewsDataMapper, NewsData> i
      * @return 删除成功(true)/删除失败(false)
      */
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public boolean deleteData(String ids){
         if(ids==null) {
             return false;
@@ -100,6 +106,7 @@ public class NewsDataServiceImpl extends ServiceImpl<NewsDataMapper, NewsData> i
      * @return PageVo 前端页面封装
      */
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public PageVo<NewsData> pageQueryByCondition(QueryVo queryVo) {
         if (queryVo == null) {
             return null;
@@ -158,6 +165,7 @@ public class NewsDataServiceImpl extends ServiceImpl<NewsDataMapper, NewsData> i
         return newPageVo;
     }
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public PageVo<NewsType> pageQueryByCondition01(QueryVo queryVo){
         PageVo<NewsType> objectPageVo = new PageVo<>();
         PageVo<NewsData> newsDataPageVo = pageQueryByCondition(queryVo);
@@ -174,5 +182,4 @@ public class NewsDataServiceImpl extends ServiceImpl<NewsDataMapper, NewsData> i
         objectPageVo.setRecords(list);
         return objectPageVo;
     }
-
 }

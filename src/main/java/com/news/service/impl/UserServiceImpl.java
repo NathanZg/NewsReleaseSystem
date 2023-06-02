@@ -7,6 +7,8 @@ import com.news.mapper.UserMapper;
 import com.news.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,8 +26,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     public UserServiceImpl(UserMapper userMapper) {this.userMapper = userMapper;}
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public boolean register(User user)  {
-
             //检查用户是否已存在
             User existingUser = userMapper.selectByName(user.getName());
             if (existingUser != null) {
@@ -40,36 +42,37 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     //查看所有用户信息
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public List<User> selectAllUsers() {
-
         return userMapper.selectAll();
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public User selectByName(User user) {
-
        User user1=userMapper.selectByName(user.getName());
         if (user1==null){
             System.out.println("查询用户为空");
             return null;
         }
         return user1;
-
-
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public boolean deleteUser(Integer id) {
         return userMapper.deleteById(id) > 0;
     }
 
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public boolean setAdmin( User user) {
         return userMapper.setAdmin(user.getName(),user.getRole());
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public boolean updatePassword(User user) {
        return userMapper.updateByPassword(user.getName(),user.getPassword());
     }

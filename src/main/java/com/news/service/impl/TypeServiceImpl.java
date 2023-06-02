@@ -10,6 +10,8 @@ import com.news.service.NewsDataService;
 import com.news.service.TypeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +40,7 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements Ty
      * @return 查找成功/失败
      */
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public List<Type> getAll(){
         return typeMapper.selectList(null);
     }
@@ -48,10 +51,12 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements Ty
      * @return type
      */
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public Type getOne(Integer id){
         return typeMapper.selectById(id);
     }
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public Integer getIdByType(String type){
         QueryWrapper<Type> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("type",type);
@@ -64,6 +69,7 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements Ty
      * @return 添加成功/失败
      */
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public boolean insertType(Type type){
         return typeMapper.insert(type)>=1;
     }
@@ -74,6 +80,7 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements Ty
      * @return 删除成功/失败
      */
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public boolean deleteType(String id){
         String[] split = id.split(",");
         ArrayList<Integer> typeIds = new ArrayList<>();

@@ -13,7 +13,7 @@
             </el-form-item>
             <el-form-item label="类型">
                 <el-select v-model="formInline.type" placeholder="请选择类型">
-                    <el-option v-for="data in typeData.data" :key="data.id" :value="data.id" :label="data.type" />
+                    <el-option v-for="data in typeData.data" :key="data.id" :value="data.type" :label="data.type" />
                 </el-select>
             </el-form-item>
             <el-form-item label="起始日期">

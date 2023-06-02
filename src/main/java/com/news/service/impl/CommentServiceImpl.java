@@ -4,15 +4,15 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.news.constants.PageConstant;
 import com.news.entity.Comment;
-import com.news.entity.NewsData;
 import com.news.entity.vo.CommentQueryVo;
 import com.news.entity.vo.PageVo;
-import com.news.entity.vo.QueryVo;
 import com.news.mapper.CommentMapper;
 import com.news.service.CommentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -36,6 +36,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public boolean insert(Comment comment) {
         LocalDateTime commentDate = comment.getCommentDate();
         if (commentDate == null) {
@@ -45,6 +46,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public boolean batchDelete(String deleteIds) {
         if (deleteIds == null || "".equals(deleteIds)) {
             return false;
@@ -62,6 +64,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public PageVo<Comment> pageQueryByNewsId(Integer id) {
         QueryWrapper<Comment> wrapper = new QueryWrapper<>();
         wrapper.eq("news_id", id);
@@ -74,6 +77,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public PageVo<Comment> pageQueryByCondition(CommentQueryVo queryVo) {
         if (queryVo == null) {
             return null;
