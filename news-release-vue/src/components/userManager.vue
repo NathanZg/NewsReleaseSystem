@@ -18,6 +18,7 @@
         <el-table-column fixed="right" label="Operations" width="400">
             <template #default="scope">
                 <el-button link type="primary" size="small"   @click="beManager(scope.row)" v-if="scope.row.role == '2' && userStore.role == '0'">设置为管理员</el-button>
+                <el-button link type="primary" size="small"   @click="beCommon(scope.row)" v-if="scope.row.role == '1' && userStore.role == '0'">设置为普通用户</el-button>
                 <el-popconfirm title="确定删除所选用户信息吗？" @confirm="deleteClick(scope.row)" v-if="scope.row.role >= userStore.role">
                     <template #reference>
                         <el-button link type="primary" size="small">删除</el-button>
@@ -183,6 +184,14 @@ const cancelForm = () => {
 //设置为管理员
 const beManager = (val: any) => {
     setData.name = val.name;
+    setData.role = 1;
+    setSubmit(setData);
+}
+
+//设置为普通用户
+const beCommon = (val: any) => {
+    setData.name = val.name;
+    setData.role = 2;
     setSubmit(setData);
 }
 
