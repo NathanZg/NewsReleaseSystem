@@ -28,7 +28,7 @@ const userStore = useUserStore()
 onBeforeMount(() => {
     if(userStore.id == -1) {
         ElMessage.info('请先注册/登陆！')
-        router.push('login')
+        router.push('/login')
     } else if (userStore.role == '2') {
         ElMessage.error('您的权限不足！')
         router.push('/')

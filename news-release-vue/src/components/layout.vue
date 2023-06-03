@@ -101,7 +101,7 @@ function getNewsListByType(id: any) {
 onBeforeMount(() => {
     if(userStore.id == -1) {
         ElMessage.info('请先注册/登陆！')
-        router.push('login')
+        router.push('/login')
     }
 })
 onMounted(() => {
