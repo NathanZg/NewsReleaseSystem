@@ -63,6 +63,6 @@ public interface NewsDataService extends IService<NewsData> {
      * @param queryVo 查询条件({null})
      * @return PageVo 前端页面封装
      */
-    PageVo<NewsType> pageQueryByCondition01(QueryVo queryVo);
+    PageVo<NewsType> pageQueryByConditionWithType(QueryVo queryVo);
 
 }

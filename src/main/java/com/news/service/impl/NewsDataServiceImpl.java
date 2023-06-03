@@ -116,18 +116,9 @@ public class NewsDataServiceImpl extends ServiceImpl<NewsDataMapper, NewsData> i
         if (id != null) {
             queryWrapper.eq("id", id);
         }
-        String type = queryVo.getType();
-        if(type!=null){
-            Integer idByType = typeService.getIdByType(type);
-            if (idByType != null) {
-                queryWrapper.eq("type_id",idByType);
-            }
-        }
-        else{
-            Integer typeId = queryVo.getTypeId();
-            if (typeId != null) {
-                queryWrapper.eq("type_id", typeId);
-            }
+        Integer typeId = queryVo.getTypeId();
+        if (typeId != null) {
+            queryWrapper.eq("type_id", typeId);
         }
         String title = queryVo.getTitle();
         if (title != null) {
@@ -166,7 +157,7 @@ public class NewsDataServiceImpl extends ServiceImpl<NewsDataMapper, NewsData> i
     }
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-    public PageVo<NewsType> pageQueryByCondition01(QueryVo queryVo){
+    public PageVo<NewsType> pageQueryByConditionWithType(QueryVo queryVo){
         PageVo<NewsType> objectPageVo = new PageVo<>();
         PageVo<NewsData> newsDataPageVo = pageQueryByCondition(queryVo);
         BeanUtils.copyProperties(newsDataPageVo, objectPageVo);

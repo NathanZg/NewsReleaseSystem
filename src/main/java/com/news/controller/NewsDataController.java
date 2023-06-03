@@ -80,9 +80,9 @@ public class NewsDataController {
             return ResponseUtils.fail("pageQueryByCondition fail!!!");
         }
     }
-    @PostMapping("/pageQueryByCondition01")
-    public Response<PageVo<NewsType>> pageQueryByCondition01(@RequestBody QueryVo queryVo){
-        PageVo<NewsType> newsTypePageVo = newsDataService.pageQueryByCondition01(queryVo);
+    @PostMapping("/pageQueryByConditionWithType")
+    public Response<PageVo<NewsType>> pageQueryByConditionWithType(@RequestBody QueryVo queryVo){
+        PageVo<NewsType> newsTypePageVo = newsDataService.pageQueryByConditionWithType(queryVo);
         boolean flag= newsTypePageVo !=null;
         if(flag){
             return ResponseUtils.success(newsTypePageVo);
@@ -91,11 +91,6 @@ public class NewsDataController {
             return ResponseUtils.fail("pageQueryByCondition01 fail!!!");
         }
     }
-//    public Response<PageVo<NewsData>> pageQueryByType(@RequestBody String type) {
-//        Integer idByType = typeService.getIdByType(type);
-//
-//        Response<PageVo<NewsData>> pageVoResponse = pageQueryByCondition(idByType);
-//    }
 
     @GetMapping("/newsDetail/{id}")
     public Response<NewsDetail> getNewsDetailById(@PathVariable Integer id){

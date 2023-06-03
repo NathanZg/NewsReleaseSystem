@@ -12,8 +12,8 @@
                 <el-input v-model="formInline.publisher" placeholder="编辑" style="width: 200px;" />
             </el-form-item>
             <el-form-item label="类型">
-                <el-select v-model="formInline.type" placeholder="请选择类型">
-                    <el-option v-for="data in typeData.data" :key="data.id" :value="data.type" :label="data.type" />
+                <el-select v-model="formInline.typeId" placeholder="请选择类型">
+                    <el-option v-for="data in typeData.data" :key="data.id" :value="data.id" :label="data.type" />
                 </el-select>
             </el-form-item>
             <el-form-item label="起始日期">
@@ -52,11 +52,10 @@
     </el-form>
 
     <!-- 表格 -->
-    <el-table :data="newsPageVo.records" style="width: 100%" @selection-change="handleSelectionChange">
+    <el-table :data="newsPageVo.records" style="width: 100%" @selection-change="handleSelectionChange" resetForm="true">
         <el-table-column type="selection" width="55" />
         <el-table-column prop="id" label="编号" width="180" />
         <el-table-column prop="title" label="标题" width="180" />
-        <!-- <el-table-column prop="data" label="内容" width="180" /> -->
         <el-table-column prop="publisher" label="编辑" width="180" />
         <el-table-column prop="type" label="类型" width="180" />
         <el-table-column prop="date" label="发布日期" />
@@ -156,14 +155,9 @@ const router = useRouter()
 onMounted(() => {
     pageSelect({});
     getType();
-    // router.push('')
 })
 
 function add() {
-    addForm.title = null
-    addForm.typeId = null
-    addForm.date = null
-    addForm.data = null
     addNews.value = true
 }
 
@@ -175,15 +169,8 @@ function pageSelect(queryVo: any) {
             newsPageVo.current = data.current
             newsPageVo.pages = data.pages
             newsPageVo.records = data.records
-            console.log(newsPageVo.records)
             newsPageVo.size = data.size
             newsPageVo.total = data.total
-            // news.id = data.records.id
-            // news.title = data.records.title
-            // news.typeId = data.records.typeId
-            // news.publisher = data.records.publisher
-            // news.data = data.records.data
-            // news.date = data.records.date
         } else {
             ElNotification.error({
                 title: 'error',
@@ -207,6 +194,11 @@ function addSubmit(queryVo: any) {
             ElMessage('添加成功！');
             addNews.value = false;
             pageSelect({});
+            addForm.title = ''
+            addForm.data = ''
+            addForm.typeId = null
+            addForm.date = null
+            console.log(addForm)
         } else {
             ElNotification.error({
                 title: 'error',
@@ -305,7 +297,6 @@ function editConfirm() {
 //提交查询按钮
 const onSubmit = () => {
     pageSelect(formInline);
-    // console.log(formInline);
 }
 //重置按钮
 const resetForm = () => {
@@ -313,8 +304,8 @@ const resetForm = () => {
     formInline.endDate = null;
     formInline.id = null;
     formInline.title = null;
-    formInline.publisher = '';
-    formInline.type = null;
+    formInline.publisher = null;
+    formInline.typeId = null;
     pageSelect({});
 }
 //处理选中项
@@ -339,11 +330,6 @@ const toggleSelection = () => {
 const commentMan = (id:any) =>{
     router.push('/console/commentManager/'+id)
 }
-//提交新增表单
-// const addCommit = () => {
-//     addSubmit(addForm);
-//     console.log(addForm);
-// }
 
 //详情按钮
 const handleClick = (val: any) => {
@@ -359,22 +345,23 @@ const editClick = (val: any) => {
     editForm.typeId = val.typeId;
     editForm.publisher = val.publisher;
     editForm.date = val.date;
-    console.log(editForm)
 }
 
 //查询表单数据
 const formInline = reactive({
     id: null,
     title: null,
-    publisher: '',
-    type: null,
+    publisher: null,
+    typeId: null,
     startDate: null,
-    endDate:null
+    endDate: null,
+    current: null,
+    size: null
 })
 //新增表单数据
 const addForm = reactive({
-    title: null,
-    data: null,
+    title: '',
+    data: '',
     publisher: userStore.name,
     date: null,
     typeId: null
@@ -383,15 +370,15 @@ const addForm = reactive({
 const editForm = reactive({
     id: null,
     title: null,
-    data: "null",
-    publisher: "null",
+    data: null,
+    publisher: null,
     date: null,
-    typeId: "1"
+    typeId: null
 })
 
 //表格数据
 const newsPageVo = reactive({
-    records: [],
+    records: null,
     total: 1,
     size: 10,
     current: 1,
@@ -446,19 +433,19 @@ const cancelForm = () => {
 
 // 前一页
 function prevClick(value: any) {
-    newsPageVo.current = value;
-    pageSelect(newsPageVo);
+    formInline.current = value;
+    pageSelect(formInline);
 }
 // 后一页
 function nextClick(value: any) {
-    newsPageVo.current = value;
-    pageSelect(newsPageVo);
+    formInline.current = value;
+    pageSelect(formInline);
 }
 
 // 跳转页码
 function currentChange(value: any) {
-    newsPageVo.current = value;
-    pageSelect(newsPageVo);
+    formInline.current = value;
+    pageSelect(formInline);
 }
 
 
