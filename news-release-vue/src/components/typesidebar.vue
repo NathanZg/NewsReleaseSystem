@@ -1,7 +1,7 @@
 <template>
   <el-row class="tac">
     <el-col :span="24">
-      <h5 class="mb-2">新闻分类</h5>
+      <h5 class="mb-2" align="center">新闻分类</h5>
       <el-menu default-active="0" @select="handleSelect" class="el-menu-vertical-demo">
         <el-menu-item index='0'>
           <el-icon><icon-menu /></el-icon>
