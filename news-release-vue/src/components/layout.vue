@@ -23,7 +23,7 @@
 import TopHeader from '@/components/header.vue';
 import NewsList from '@/components/newslist.vue';
 import TypeSideBar from '@/components/typesidebar.vue';
-import { pageQueryByCondition } from '@/api/news';
+import { pageQueryByCondition2 } from '@/api/news';
 import { ref, reactive, onMounted, onBeforeMount } from 'vue';
 import { ElNotification, ElMessage } from 'element-plus';
 import { useUserStore } from '@/stores/user';
@@ -50,7 +50,7 @@ const pageVo = reactive({
     pages: 0
 })
 function getNewsByCondition(queryVo: object) {
-    pageQueryByCondition(queryVo).then((res) => {
+    pageQueryByCondition2(queryVo).then((res) => {
         var data = res.data.data
         if (res.data.code == 200) {
             pageVo.records = data.records
