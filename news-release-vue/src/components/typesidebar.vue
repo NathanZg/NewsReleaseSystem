@@ -22,12 +22,6 @@ import { onMounted, ref } from 'vue'
 import {
   Menu as IconMenu,
 } from '@element-plus/icons-vue'
-const prop = defineProps({
-  typeList: {
-    type: Object,
-    default: ref([])
-  }
-})
 const emit = defineEmits(
   [
     'clickType'
