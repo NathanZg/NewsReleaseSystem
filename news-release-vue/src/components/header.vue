@@ -6,6 +6,7 @@
       <el-avatar :src="'https://api.multiavatar.com/' + userStore.name + '.png'" />
       <el-sub-menu index="2-4">
         <template #title>{{ userStore.name }}</template>
+        <el-menu-item @click="() => { router.push('/') }">新闻首页</el-menu-item>
         <el-menu-item @click="() => { router.push('/console') }" v-if="userStore.role == '0' || userStore.role == '1'">后台管理</el-menu-item>
         <el-menu-item @click="logOut">退出登陆</el-menu-item>
       </el-sub-menu>
