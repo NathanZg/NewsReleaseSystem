@@ -4,7 +4,7 @@
       :router="true"
     >
       <el-menu-item index="/console/newsManager">
-        <el-icon><List /></el-icon>
+        <el-icon><Reading /></el-icon>
         <template #title>新闻信息</template>
       </el-menu-item>
       <el-menu-item index="/console/typeManager">
@@ -12,7 +12,7 @@
         <template #title>类型信息</template>
       </el-menu-item>
       <el-menu-item index="/console/userManager">
-        <el-icon><FolderAdd /></el-icon>
+        <el-icon><User /></el-icon>
         <template #title>用户信息</template>
       </el-menu-item>
     </el-menu>

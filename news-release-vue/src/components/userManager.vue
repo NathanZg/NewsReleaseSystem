@@ -17,9 +17,12 @@
         </el-table-column>
         <el-table-column fixed="right" label="Operations" width="400">
             <template #default="scope">
-                <el-button link type="primary" size="small"   @click="beManager(scope.row)" v-if="scope.row.role == '2' && userStore.role == '0'">设置为管理员</el-button>
-                <el-button link type="primary" size="small"   @click="beCommon(scope.row)" v-if="scope.row.role == '1' && userStore.role == '0'">设置为普通用户</el-button>
-                <el-popconfirm title="确定删除所选用户信息吗？" @confirm="deleteClick(scope.row)" v-if="scope.row.role >= userStore.role">
+                <el-button link type="primary" size="small" @click="beManager(scope.row)"
+                    v-if="scope.row.role == '2' && userStore.role == '0'">设置为管理员</el-button>
+                <el-button link type="primary" size="small" @click="beCommon(scope.row)"
+                    v-if="scope.row.role == '1' && userStore.role == '0'">设置为普通用户</el-button>
+                <el-popconfirm title="确定删除所选用户信息吗？" @confirm="deleteClick(scope.row)"
+                    v-if="scope.row.role >= userStore.role">
                     <template #reference>
                         <el-button link type="primary" size="small">删除</el-button>
                     </template>
@@ -31,18 +34,20 @@
     <el-dialog v-model="addUser" align-center title="新增用户" :with-header="false" :before-close="handleClose"
         class="demo-drawer">
         <div class="demo-drawer__content">
-            <el-form :model="addForm">
-                <el-form-item label="用户名" :label-width="formLabelWidth">
-                    <el-input v-model="addForm.name" autocomplete="off" style="width:fit-content;" />
-                </el-form-item>
-                <el-form-item label="密码" :label-width="formLabelWidth">
-                    <el-input v-model="addForm.password" autocomplete="off" style="width:fit-content;" />
-                </el-form-item>
-            </el-form>
+            <div class="demo-drawer__form">
+                <el-form :model="addForm">
+                    <el-form-item label="用户名" :label-width="formLabelWidth">
+                        <el-input v-model="addForm.name" autocomplete="off" style="width:fit-content;" />
+                    </el-form-item>
+                    <el-form-item label="密码" :label-width="formLabelWidth">
+                        <el-input v-model="addForm.password" autocomplete="off" style="width:fit-content;" />
+                    </el-form-item>
+                </el-form>
+            </div>
             <div class="demo-drawer__footer">
-                <el-button @click="cancelForm">Cancel</el-button>
+                <el-button @click="cancelForm">取消</el-button>
                 <el-button type="primary" :loading="loading" @click="addClick">{{
-                    loading ? 'Submitting ...' : 'Submit'
+                    loading ? 'Submitting ...' : '提交'
                 }}</el-button>
             </div>
         </div>
@@ -52,8 +57,8 @@
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
 import { ElDrawer, ElMessageBox, ElMessage } from 'element-plus'
-import { useRouter } from 'vue-router';
-import { userSelect, userAdd, userDelete,configManager } from '@/api/user';
+// import { useRouter } from 'vue-router';
+import { userSelect, userAdd, userDelete, configManager } from '@/api/user';
 import { useUserStore } from '@/stores/user';
 const userStore = useUserStore()
 onMounted(() => {
@@ -221,3 +226,12 @@ const handleClose = (done: any) => {
         })
 }
 </script>
+
+<style>
+.demo-drawer__content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+</style>
