@@ -2,7 +2,7 @@
   <div :class="{ container: true, 'sign-up-model': vari }">
     <div class="inner-left-container">
       <div class="login-content">
-        <h1 style="color: white;">科大网上新闻发布教育</h1>
+        <h1 style="color: white;">科大网上新闻发布系统</h1>
         <ElButton type="primary" @click="onClick" size="large">去注册</ElButton>
       </div>
       <img src="@/assets/login-bg.svg" class="image">
