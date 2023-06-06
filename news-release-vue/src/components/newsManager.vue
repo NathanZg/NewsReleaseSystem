@@ -100,9 +100,9 @@
 
             </el-form>
             <div class="demo-drawer__footer">
-                <el-button @click="cancelForm">Cancel</el-button>
+                <el-button @click="cancelForm">取消</el-button>
                 <el-button type="primary" :loading="loading" @click="addClick">{{
-                    loading ? 'Submitting ...' : 'Submit'
+                    loading ? 'Submitting ...' : '提交'
                 }}</el-button>
             </div>
         </div>
@@ -131,9 +131,9 @@
                 </el-form-item>
             </el-form>
             <div class="demo-drawer__footer">
-                <el-button @click="cancelForm">Cancel</el-button>
+                <el-button @click="cancelForm">取消</el-button>
                 <el-button type="primary" :loading="loading" @click="editConfirm">{{
-                    loading ? 'Submitting ...' : 'Submit'
+                    loading ? 'Submitting ...' : '提交'
                 }}</el-button>
             </div>
         </div>
@@ -463,5 +463,13 @@ function currentChange(value: any) {
 .control-form {
     float: right;
 }
+
+.demo-drawer__content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
 </style>
   

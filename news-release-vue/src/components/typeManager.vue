@@ -13,11 +13,14 @@
             +&ensp;新增类型
         </el-button>
     </div>
+    <br><br>
+    <div style="margin-left: 10px;">
     <!-- 表格 -->
-    <el-table :data="typeData" style="width: 100%" @selection-change="handleSelectionChange">
+    <el-table :data="typeData" style="width: 50%" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="100" />
         <el-table-column prop="type" label="类型" width="200" />
     </el-table>
+    </div>
 
     <el-dialog v-model="addType" align-center title="新增类型" :with-header="false" :before-close="handleClose"
         class="demo-drawer">
@@ -28,9 +31,9 @@
                 </el-form-item>
             </el-form>
             <div class="demo-drawer__footer">
-                <el-button @click="cancelForm">Cancel</el-button>
+                <el-button @click="cancelForm">取消</el-button>
                 <el-button type="primary" :loading="loading" @click="addClick">{{
-                    loading ? 'Submitting ...' : 'Submit'
+                    loading ? 'Submitting ...' : '提交'
                 }}</el-button>
             </div>
         </div>
@@ -40,7 +43,6 @@
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
 import { ElDrawer, ElMessageBox, ElMessage } from 'element-plus'
-import { useRouter } from 'vue-router';
 import { typeAdd, typeDelete, typeSelect } from '@/api/type';
 
 onMounted(() => {
@@ -183,3 +185,12 @@ const handleClose = (done: any) => {
         })
 }
 </script>
+
+<style>
+.demo-drawer__content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+</style>
