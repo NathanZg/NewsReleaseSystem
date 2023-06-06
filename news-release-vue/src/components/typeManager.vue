@@ -9,7 +9,7 @@
         </el-popconfirm>
 
         <!-- 新增操作 -->
-        <el-button type="primary" @click="addType = true" style="margin-left: 40px;">
+        <el-button type="primary" @click=add style="margin-left: 40px;">
             +&ensp;新增类型
         </el-button>
     </div>
@@ -125,7 +125,6 @@ const loading = ref(false)
 
 const typeData = ref([])   //表格数据
 const addForm = reactive({
-    id:null,
     type: null
 })
 
@@ -144,6 +143,12 @@ const handleSelectionChange = (val: []) => {
     }
     //   console.log(selectLine);
 }
+const add=()=>{
+    addType.value = true;
+    addForm.type = null;
+
+}
+
 //删除按钮
 const toggleSelection = () => {
     if (selectLine) {
