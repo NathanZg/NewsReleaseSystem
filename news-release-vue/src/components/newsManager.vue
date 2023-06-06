@@ -69,9 +69,6 @@
     </el-table>
 
     <!-- 分页 -->
-    <!-- <el-pagination background layout="sizes, prev, pager, next" :total="total" :current-page="currentPage"
-        :page-sizes="[10, 20, 30, 40]" :page-size="pageSize" @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"></el-pagination> -->
     <div class="Pagination" style="text-align: left;margin-top: 10px;">
         <el-pagination background layout="prev, pager, next" @prev-click="prevClick" @next-click="nextClick"
             @current-change="currentChange" :total="newsPageVo.total" :page-count="newsPageVo.pages" />
@@ -117,9 +114,6 @@
                 </el-form-item>
                 <el-form-item label="内容" :label-width="formLabelWidth">
                     <my-editor :data="editForm" />
-                </el-form-item>
-                <el-form-item label="编辑" :label-width="formLabelWidth">
-                    <el-input v-model="editForm.publisher" autocomplete="off" style="width:fit-content;" />
                 </el-form-item>
                 <el-form-item label="类型" :label-width="formLabelWidth">
                     <el-select v-model="editForm.typeId" placeholder="请选择类型">
@@ -221,6 +215,7 @@ function editSubmit(queryVo: any) {
         if (res.data.code == 200) {
             ElMessage('修改成功！');
             editNew.value = false;
+            pageSelect({});
         } else {
             ElNotification.error({
                 title: 'error',
@@ -315,7 +310,6 @@ const handleSelectionChange = (val: []) => {
     for (i = 0; i < arr.length; i++) {
         selectLine[i] = val[i].id;
     }
-    //   console.log(selectLine);
 }
 //删除按钮
 const toggleSelection = () => {
@@ -327,10 +321,10 @@ const toggleSelection = () => {
         // console.log(newStr);
     }
 }
+//评论管理
 const commentMan = (id:any) =>{
     router.push('/console/commentManager/'+id)
 }
-
 //详情按钮
 const handleClick = (val: any) => {
     router.push('/detail/' + val.id);
@@ -343,7 +337,6 @@ const editClick = (val: any) => {
     editForm.title = val.title;
     editForm.data = val.data;
     editForm.typeId = val.typeId;
-    editForm.publisher = val.publisher;
     editForm.date = val.date;
 }
 
@@ -371,7 +364,7 @@ const editForm = reactive({
     id: null,
     title: null,
     data: null,
-    publisher: null,
+    publisher: userStore.name,
     date: null,
     typeId: null
 })
