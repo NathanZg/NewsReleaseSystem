@@ -291,7 +291,9 @@ function editConfirm() {
 
 //提交查询按钮
 const onSubmit = () => {
+    console.log(formInline);
     pageSelect(formInline);
+    
 }
 //重置按钮
 const resetForm = () => {

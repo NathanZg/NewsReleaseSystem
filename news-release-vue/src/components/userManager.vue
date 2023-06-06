@@ -1,7 +1,7 @@
 <template>
     <div class="control-add">
         <!-- 新增操作 -->
-        <el-button type="primary" @click="addUser = true">
+        <el-button type="primary" @click=add>
             +&ensp;新增用户
         </el-button>
     </div>
@@ -71,7 +71,7 @@ function addShow(val: any) {
         var data = res.data.data
         if (res.data.code == 200) {
             userData.value = data;
-            console.log(userData)
+            // console.log(userData)
         } else {
             ElNotification.error({
                 title: 'error',
@@ -172,7 +172,11 @@ const setData = reactive({
     name: null,
     role: 1
 })
-
+function add() {
+    addUser.value = true;
+    addForm.name = null;
+    addForm.password = null;
+}
 
 function addClick() {
     addSubmit(addForm);
