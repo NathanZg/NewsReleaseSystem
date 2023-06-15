@@ -3,7 +3,6 @@ package com.news.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
-
 import lombok.*;
 
 /**
@@ -38,4 +37,9 @@ public class User implements Serializable {
      * 用户权限
      */
     private String role;
+
+    public User( String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
 }

@@ -14,7 +14,7 @@ import lombok.*;
  * </p>
  *
  * @author Sancean
- * @since 2023-05-19
+ * @since 2023-05-22
  */
 @Data
 @AllArgsConstructor
@@ -46,4 +46,9 @@ public class NewsData implements Serializable {
      * 发布日期
      */
     private LocalDateTime date;
+
+    /**
+     * 类型id
+     */
+    private Integer typeId;
 }

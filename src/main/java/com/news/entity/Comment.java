@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
 import lombok.*;
 
 /**
@@ -13,7 +12,7 @@ import lombok.*;
  * </p>
  *
  * @author Sancean
- * @since 2023-05-19
+ * @since 2023-05-23
  */
 @Data
 @AllArgsConstructor
@@ -39,4 +38,9 @@ public class Comment implements Serializable {
      * 评论时间
      */
     private LocalDateTime commentDate;
+
+    /**
+     * 新闻id
+     */
+    private Integer newsId;
 }

@@ -4,33 +4,25 @@ import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
-import com.news.entity.NewsComment;
-import com.news.mapper.NewsCommentMapper;
+import com.news.service.CommentService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Types;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 
 @SpringBootTest
 class NewsReleaseSystemApplicationTests {
 
-    @Autowired
-    NewsCommentMapper newsCommentMapper;
-
     @Test
     void contextLoads() {
-        NewsComment newsComment = new NewsComment(2, 1);
-        List<Integer> integers = new ArrayList<>();
-        integers.add(1);
-        integers.add(2);
-        newsCommentMapper.deleteBatchIds(integers);
     }
 
-//    @Test
+//        @Test
     void generator() {
         String dbUrl = "jdbc:mysql://localhost:3306/nrs";
         String username = "root";
@@ -65,7 +57,6 @@ class NewsReleaseSystemApplicationTests {
                             .addInclude("type")
                             .addInclude("comment")
                             .addInclude("news_data")
-                            .addInclude("news_type")
                             .addInclude("news_comment")
                             .addTablePrefix("t_", "c_"); // 设置过滤表前缀
                     builder.entityBuilder().enableLombok();
@@ -77,5 +68,80 @@ class NewsReleaseSystemApplicationTests {
                 .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
                 .execute();
     }
+//    @Autowired
+//    private CommentService commentService;
+//    @Autowired
+//    private NewsCommentService newsCommentService;
+//    @Autowired
+//    private NewsDataService newsDataService;
+//    @Test
+//    void getAll()
+//    {
+//        List<NewsComment> commentList= newsCommentService.getAll();
+//        for(NewsComment com:commentList)
+//            System.out.println("NewId:"+com.getNewsId()+" CommentId:"+com.getCommentId());
+//    }
 
+    @Test
+    public void Insert()
+    {
+//        Comment comment=new Comment();
+//        comment.setUser("D");
+//        comment.setCommentData("Aaaaaaaaaaaaaaaaaaaaa");
+//        comment.setCommentDate(LocalDateTime.parse("2023-05-19 17:56:38", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+//        commentService.insert(comment);
+//        NewsComment newsComment=new NewsComment();
+//        newsComment.setNewsId(6);
+//        newsComment.setCommentId(13);
+//        newsCommentService.insert(newsComment);
+    }
+
+    @Test
+    void deleteD()
+    {
+//        List<Integer>list = new ArrayList<>();
+//        list.add(1);
+//        list.add(2);
+//        list.add(3);
+//        list.add(4);
+//        newsCommentService.batch_delete(list);
+    }
+
+//    @Test
+//    void update(){
+//        Comment comment=new Comment();
+//        comment.setId(7);
+//        comment.setUser("C");
+//        comment.setCommentData("Aaaaaaaaaaaaaaaaaaaaa");
+//        comment.setCommentDate(LocalDateTime.parse("2023-05-19 17:56:38", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+//        commentService.updateId(comment);
+//    }
+//
+//    @Test
+//    void selectCommentByNews()
+//    {
+//        List<Comment>newsCommentList=newsCommentService.getCommentByNews(1);
+//        System.out.println(newsCommentList);
+//    }
+
+//    @Test
+//    void insertNewsData()
+//    {
+//        NewsData newsData=new NewsData();
+//        newsData.setData("asdasbhasbfus");
+//        newsData.setDate(LocalDateTime.parse("2023-05-02 16:25:17",DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+//        newsData.setPublisher("诞");
+//        newsData.setTitle("大标题6");
+//        newsDataService.insertData(newsData);
+//    }
+
+//    @Test
+//    void selectNewsDataPage()
+//    {
+//        QueryVo queryVo=new QueryVo();
+//        queryVo.setCurrent(0L);
+//        queryVo.setSize(2L);
+//        PageVo<NewsData> newsDataPageVo=newsDataService.pageQueryByCondition(queryVo);
+////        System.out.println(newsDataPageVo.getRecords());
+//    }
 }

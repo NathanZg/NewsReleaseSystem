@@ -1,7 +1,19 @@
 package com.news.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.stereotype.Controller;
+import com.news.entity.Comment;
+import com.news.entity.NewsData;
+import com.news.entity.vo.NewsDetail;
+import com.news.entity.vo.NewsType;
+import com.news.entity.vo.PageVo;
+import com.news.entity.vo.QueryVo;
+import com.news.service.CommentService;
+import com.news.service.NewsDataService;
+import com.news.service.TypeService;
+import com.news.utils.Response;
+import com.news.utils.ResponseUtils;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -11,8 +23,86 @@ import org.springframework.stereotype.Controller;
  * @author Sancean
  * @since 2023-05-19
  */
-@Controller
-@RequestMapping("/news/newsData")
+@RestController
+@RequestMapping("/api")
 public class NewsDataController {
+    private NewsDataService newsDataService;
+    private CommentService commentService;
+    private TypeService typeService;
 
+    public NewsDataController(NewsDataService newsDataService, CommentService commentService, TypeService typeService) {
+        this.newsDataService = newsDataService;
+        this.commentService = commentService;
+        this.typeService = typeService;
+    }
+
+    @PostMapping("/newsSelect")
+    public Response<List<NewsData>> newsSelect() {
+        List<NewsData> allData = newsDataService.getAllData();
+        return ResponseUtils.success(allData);
+    }
+    @PostMapping("/newsAdd")
+    public Response<Object> newsAdd(@RequestBody NewsData newsData) {
+        if(newsDataService.insertData(newsData)){
+            return ResponseUtils.success("Add newsData successfully!");
+        }
+        else{
+            return ResponseUtils.fail("Failed to Add newsData !");
+        }
+    }
+    @PostMapping("/newsUpdate")
+    public Response<Object> newsUpdate(@RequestBody NewsData newsData) {
+        if(newsDataService.updateData(newsData)){
+            return ResponseUtils.success("Update newsData successfully!");
+        }
+        else{
+            return ResponseUtils.fail("Failed to Update newsData !");
+        }
+    }
+    @DeleteMapping("/newsDelete")
+    public Response<Object> newsDelete(@RequestBody String ids) {
+        if(newsDataService.deleteData(ids)){
+            return ResponseUtils.success("Delete newsData successfully!");
+        }
+        else{
+            return ResponseUtils.fail("Failed to Delete newsData !");
+        }
+    }
+
+    @PostMapping("/pageQueryByCondition")
+    public Response<PageVo<NewsData>> pageQueryByCondition(@RequestBody QueryVo queryVo){
+        PageVo<NewsData> newsDataPageVo=newsDataService.pageQueryByCondition(queryVo);
+        boolean flag= newsDataPageVo != null;
+        if(flag){
+            return ResponseUtils.success(newsDataPageVo);
+        }
+        else {
+            return ResponseUtils.fail("pageQueryByCondition fail!!!");
+        }
+    }
+    @PostMapping("/pageQueryByConditionWithType")
+    public Response<PageVo<NewsType>> pageQueryByConditionWithType(@RequestBody QueryVo queryVo){
+        PageVo<NewsType> newsTypePageVo = newsDataService.pageQueryByConditionWithType(queryVo);
+        boolean flag= newsTypePageVo !=null;
+        if(flag){
+            return ResponseUtils.success(newsTypePageVo);
+        }
+        else {
+            return ResponseUtils.fail("pageQueryByCondition01 fail!!!");
+        }
+    }
+
+    @GetMapping("/newsDetail/{id}")
+    public Response<NewsDetail> getNewsDetailById(@PathVariable Integer id){
+        PageVo<Comment> commentPageVo = commentService.pageQueryByNewsId(id);
+        NewsData data = newsDataService.getData(id);
+        NewsDetail newsDetail = new NewsDetail(data, commentPageVo);
+        boolean flag= data != null;
+        if(flag) {
+            return ResponseUtils.success(newsDetail);
+        }
+        else {
+            return ResponseUtils.fail("get newsDetail by newsId fail!!!");
+        }
+    }
 }

@@ -7,10 +7,11 @@ import com.news.constants.ResponseCode;
  * @Date 2023/05/03 13:37
  **/
 public class ResponseUtils {
-    public static <T> Response<T>  defineSuccess(Integer code, T data) {
+    public static <T> Response<T>  defineSuccess(Integer code, String msg, T data) {
         Response<T> response = new Response<T>();
         response.setCode(code);
         response.setData(data);
+        response.setMsg(msg);
         return response;
     }
 
